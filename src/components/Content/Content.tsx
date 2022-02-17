@@ -2,14 +2,13 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Banner from "../Banner/Banner";
 import SubBanner from "../Banner/SubBanner";
-import FlowerList from "./FlowerList";
+import ProductList from "./ProductList";
 import Title from "./Title";
 
 type Props = {
-    handleAddToCart: (item: IFlower) => void
 }
 
-const Content: React.FC<Props> = ({ handleAddToCart }) => {
+const Content: React.FC<Props> = () => {
   return (
     <ContentWrapper className="content">
       <div className="home">
@@ -39,7 +38,7 @@ const Content: React.FC<Props> = ({ handleAddToCart }) => {
             rightArrow="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
           />
         </ContentTitle>
-        <FlowerList handleAddItemToCart={handleAddToCart} />
+        <ProductList endpoint={'/flowers'} />
         <ContentTitle className="content__title">
           <Title
             text="Revelant"
@@ -47,7 +46,7 @@ const Content: React.FC<Props> = ({ handleAddToCart }) => {
             rightArrow="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
           />
         </ContentTitle>
-        {/* <FlowerList handleAddItemToCart={handleAddToCart} /> */}
+        <ProductList endpoint="/plants" />
       </div>
     </ContentWrapper>
   );

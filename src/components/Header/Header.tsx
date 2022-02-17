@@ -5,15 +5,16 @@ import Search from "../Search";
 import Cart from "../Cart";
 import { Badge } from "antd";
 import "antd/dist/antd.css";
+import { StoreContext } from "../../context";
 
 type Props = {
-  cartItems: IFlower[];
-  handleRemoveFromCart: (id: string) => void
 };
 
-const Header: React.FC<Props> = ({ cartItems, handleRemoveFromCart }) => {
+const Header: React.FC<Props> = () => {
   const [showSearch, setShow] = useState(false);
   const [showCart, setShowCart] = useState(false);
+
+  const store = useContext(StoreContext)
 
   const handleShowSearch = () => {
     setShow(!showSearch);
@@ -53,7 +54,7 @@ const Header: React.FC<Props> = ({ cartItems, handleRemoveFromCart }) => {
           />
         </IconWrapper>
         <IconWrapper>
-          <Badge count={cartItems.length} size="small">
+          <Badge count={store?.cartItems!.length} size="small">
             <img
               onClick={handleShowCart}
               className="header__icon-cart"
@@ -61,11 +62,9 @@ const Header: React.FC<Props> = ({ cartItems, handleRemoveFromCart }) => {
               alt=""
             />
             <Cart
-              cartItems={cartItems}
               onShow={showCart}
               onCancel={handleCancelCart}
               onOkClick={handleOkClick}
-              onRemove={handleRemoveFromCart}
             />
           </Badge>
         </IconWrapper>

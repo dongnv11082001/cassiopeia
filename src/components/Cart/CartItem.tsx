@@ -1,34 +1,40 @@
 import styled from "styled-components";
 import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
 import { Counter } from "./Counter";
+import { StoreContext } from "../../context";
 
 type Props = {
-  id: string;
-  image: string;
-  name: string;
-  price: number;
-  amount: number;
-  onRemove: (id: string) => void;
-  cartItems: IFlower[]
+  item: IFlower;
 };
 
-export const CartModal: React.FC<Props> = ({
-  id,
-  image,
-  name,
-  price,
-  amount,
-  onRemove,
-  cartItems
-}) => {
+export const CartItem: React.FC<Props> = ({ item }) => {
+  const [quantity, setQuantity] = useState(1);
+  const CartModalContext = useContext(StoreContext);
+  const handleRemove = CartModalContext?.handleRemoveFromCart!;
+  const { id } = useParams();
+  const cartItems = CartModalContext?.cartItems!;
+  const order = cartItems.map((item) => {
+    return { ...item, amount: quantity };
+  });
+
+  const handleIncrease = () => {
+    setQuantity((prev) => prev + 1);
+    CartModalContext?.setCartItems!(order);
+  };
+
+  const handleDecrease = () => {
+    setQuantity((prev) => prev - 1);
+    CartModalContext?.setCartItems!(order);
+  };
+
   return (
     <CartItemContainer>
       <div className="image-wrapper">
-        <Img src={image} alt="avatar" />
+        <Img src={item.image} alt="avatar" />
         <div className="detail-btn-wrapper">
-          <Link to={"/flowers/1"}>
+          <Link to={"/flowers/" + id}>
             <div className="detail-button">
               <SearchOutlined />
             </div>
@@ -37,17 +43,19 @@ export const CartModal: React.FC<Props> = ({
       </div>
       <div className="control-center">
         <div className="top-center">
-          <div className="product-name">{name}</div>
-          <div className="price">${price}</div>
+          <div className="product-name">{item.name}</div>
+          <div className="price">${item.price}</div>
         </div>
         <div className="bottom-center">
           <div className="left-bottom-center">
-            <Counter cartItems={cartItems} id={id} quantity={amount} />
-            <div className="total-price">
-              {amount > 1 && "$" + amount * price}
-            </div>
+            <Counter
+              price={item.price}
+              quantity={quantity}
+              handleIncrease={handleIncrease}
+              handleDecrease={handleDecrease}
+            />
           </div>
-          <div className="delete-btn" onClick={() => onRemove(id)}>
+          <div className="delete-btn" onClick={() => handleRemove(item.id)}>
             {<DeleteOutlined />}
           </div>
         </div>
@@ -137,5 +145,5 @@ const CartItemContainer = styled.div`
 `;
 
 const Img = styled.img`
-    width: 100px;
-`
+  width: 100px;
+`;

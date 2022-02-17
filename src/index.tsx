@@ -6,12 +6,12 @@ import { BrowserRouter } from "react-router-dom";
 import { StoreContextProvider } from "./context";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <StoreContextProvider>
-        <App />
-      </StoreContextProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  //   <React.StrictMode>
+  <BrowserRouter>
+    <StoreContextProvider>
+      <App />
+    </StoreContextProvider>
+  </BrowserRouter>,
+  //   </React.StrictMode>
   document.getElementById("root")
 );

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useState } from "react";
 
 const StoreContext = createContext<IStoreContext | undefined>(undefined);
 
@@ -15,6 +15,7 @@ const StoreContextProvider: React.FC<{ children: React.ReactNode }> = ({
     const filteredCartItems = cartItems.filter((item) => item.id !== id);
     setCartItems(filteredCartItems);
   };
+
   const value = {
     handleAddToCart,
     handleRemoveFromCart,

@@ -3,7 +3,7 @@ interface IFlower {
   price: number;
   name: string;
   image: string;
-  amount: number;
+  amount?: number;
 }
 
 interface IStoreContext {
@@ -13,4 +13,4 @@ interface IStoreContext {
   handleRemoveFromCart?: (id: string) => void;
 }
 
-interface ICartItem {}
+interface IOrder {}

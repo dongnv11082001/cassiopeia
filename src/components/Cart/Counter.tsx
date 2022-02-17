@@ -1,42 +1,31 @@
-import { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-type CounterProps = {
-  id?: string;
-  cartItems: IFlower[]
+type Props = {
+  price: number;
+  handleIncrease: () => void;
+  handleDecrease: () => void;
   quantity: number;
 };
 
-export const Counter = ({ id, quantity, cartItems }: CounterProps) => {
-    const [itemQuantity, setItemQuantity] = useState<IFlower[]>([])
-
-  const handleIncrease = () => {
-    const updater = cartItems?.map((item) => {
-      if (item.id === id) return { ...item, amount: item.amount + 1 };
-      return item;
-    });
-    setItemQuantity(updater);
-    localStorage.setItem("products", JSON.stringify(updater));
-  };
-  const handleDecrease = () => {
-    if (quantity <= 1) return;
-
-    const updater = cartItems?.map((item) => {
-      if (item.id === id) return { ...item, amount: item.amount - 1 };
-      return item;
-    });
-    setItemQuantity(updater);
-  };
-
+export const Counter: React.FC<Props> = ({
+  price,
+  handleIncrease,
+  handleDecrease,
+  quantity,
+}) => {
   return (
     <CounterContainer>
       <div className="btn" onClick={handleDecrease}>
-        -
+        <button className="btn" disabled={quantity === 1}>
+          -
+        </button>
       </div>
-      <div className="amount">{quantity}</div>
+      <div className="amount">{quantity >= 1 && quantity}</div>
       <div className="btn" onClick={handleIncrease}>
         +
       </div>
+      {quantity > 1 && <StyledPrice>${quantity * price}</StyledPrice>}
     </CounterContainer>
   );
 };
@@ -45,9 +34,7 @@ export const CounterContainer = styled.div`
   align-items: center;
   gap: 20px;
   font-weight: 500;
-  .amount {
-    font-size: 1.1rem;
-  }
+
   .btn {
     cursor: pointer;
     width: 27px;
@@ -58,5 +45,14 @@ export const CounterContainer = styled.div`
     line-height: 22px;
     font-size: 1.4rem;
     user-select: none;
+    outline: none;
+    border: none;
   }
+`;
+
+const StyledPrice = styled.p`
+  color: red;
+  text-align: center;
+  padding: 0;
+  margin: 0;
 `;

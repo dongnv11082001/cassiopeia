@@ -1,23 +1,20 @@
 import { Modal } from "antd";
 import "antd/lib/modal/style/css";
+import { useContext } from "react";
 import styled from "styled-components";
-import { CartModal } from "./CartModal";
+import { StoreContext } from "../../context";
+import AddedItem from "./AddedItem";
+import { CartItem } from "./CartItem";
 
 type CartProps = {
-  cartItems: IFlower[] | undefined;
   onShow: boolean;
   onCancel: () => void;
   onOkClick: () => void;
-  onRemove: (id: string) => void;
 };
 
-const Cart: React.FC<CartProps> = ({
-  onShow,
-  onCancel,
-  onOkClick,
-  cartItems,
-  onRemove,
-}) => {
+const Cart: React.FC<CartProps> = ({ onShow, onCancel, onOkClick }) => {
+  const CartContext = useContext(StoreContext);
+
   return (
     <>
       <Modal
@@ -27,27 +24,26 @@ const Cart: React.FC<CartProps> = ({
         onOk={onOkClick}
         style={{ top: 50, right: -312 }}
         mask={false}
+        footer={false}
         closable={false}
       >
-        {cartItems?.length === 0 && (
+        {CartContext?.cartItems?.length === 0 && (
           <Text>
             <h2>Your cart is empty</h2>
             <p>Next step: add a product to your cart</p>
           </Text>
         )}
-        {cartItems?.length! > 0 &&
-          cartItems?.map((item) => (
-            <CartModal
-              cartItems={cartItems}
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              amount={item.amount}
-              onRemove={onRemove}
-            />
-          ))}
+        {CartContext?.cartItems?.length! > 0 && (
+          <>
+            {CartContext?.cartItems?.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+              />
+            ))}
+            <AddedItem />
+          </>
+        )}
       </Modal>
     </>
   );
