@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Search from "../Search";
 import Cart from "../Cart";
+import { Badge } from "antd";
+import "antd/dist/antd.css";
+import { StoreContext } from "../../context";
 
 function Header() {
   const [showSearch, setShow] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const items = useContext(StoreContext);
+
+  const cartItems = items?.items
 
   const handleShowSearch = () => {
     setShow(!showSearch);
@@ -52,11 +58,14 @@ function Header() {
             src="/img/cart.svg"
             alt=""
           />
-          <Cart
-            onShow={showCart}
-            onCancel={handleCancelCart}
-            onOkClick={handleOkClick}
-          />
+          {/* <Badge count={items?.items.length} size='small'> */}
+            <Cart
+              cartItems={cartItems}
+              onShow={showCart}
+              onCancel={handleCancelCart}
+              onOkClick={handleOkClick}
+            />
+          {/* </Badge> */}
         </IconWrapper>
       </HeaderGroup>
     </HeaderContainer>

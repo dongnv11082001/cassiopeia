@@ -1,10 +1,12 @@
 interface IFlower {
-  id?: string;
-  price?: string;
-  name?: string;
-  image?: string;
+  id: string;
+  price: string;
+  name: string;
+  image: string;
+  amount: number
 }
 
 interface IStoreContext {
-    items: IFlower[]
+    items: IFlower[];
+    setItems?: React.Dispatch<React.SetStateAction<IFlower[]>>;
 }

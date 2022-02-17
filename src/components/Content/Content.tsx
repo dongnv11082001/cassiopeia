@@ -1,11 +1,20 @@
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { StoreContext } from "../../context";
 import Banner from "../Banner/Banner";
 import SubBanner from "../Banner/SubBanner";
 import FlowerList from "./FlowerList";
-import RevelantList from "./RelevantList";
 import Title from "./Title";
 
-function Content() {
+const Content: React.FC = () => {
+  const context = useContext(StoreContext);
+
+  const handleAddToCart = (item: IFlower) => {
+    context?.setItems!((prev) => {
+      return [...prev, { ...item }];
+    });
+  };
+
   return (
     <ContentWrapper className="content">
       <div className="home">
@@ -35,7 +44,7 @@ function Content() {
             rightArrow="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
           />
         </ContentTitle>
-        <FlowerList />
+        <FlowerList handleAddItemToCart={handleAddToCart} />
         <ContentTitle className="content__title">
           <Title
             text="Revelant"
@@ -43,11 +52,11 @@ function Content() {
             rightArrow="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
           />
         </ContentTitle>
-        <RevelantList />
+        <FlowerList handleAddItemToCart={handleAddToCart} />
       </div>
     </ContentWrapper>
   );
-}
+};
 
 const ContentWrapper = styled.section`
   margin: 0 auto;
