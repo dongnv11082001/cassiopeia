@@ -5,19 +5,22 @@ const StoreContext = createContext<IStoreContext | undefined>(undefined);
 const StoreContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [items, setItems] = useState<IFlower[]>([]);
-  const url = "https://620c70a3b5736325938e3172.mockapi.io";
+  const [cartItems, setCartItems] = useState<IFlower[]>([]);
 
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await fetch(`${url}/flowers`);
-      const data = await response.json();
-      setItems(data);
-    };
-    fetchApi();
-  }, []);
+  const handleAddToCart = (item: IFlower) => {
+    setCartItems((prev) => [...prev, { ...item }]);
+  };
 
-  const value = useMemo(() => ({ items, setItems }), [items]);  
+  const handleRemoveFromCart = (id: string) => {
+    const filteredCartItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(filteredCartItems);
+  };
+  const value = {
+    handleAddToCart,
+    handleRemoveFromCart,
+    cartItems,
+    setCartItems,
+  };
 
   return (
     <StoreContext.Provider value={value}>{children}</StoreContext.Provider>

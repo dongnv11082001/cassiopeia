@@ -1,18 +1,19 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Search from "../Search";
 import Cart from "../Cart";
 import { Badge } from "antd";
 import "antd/dist/antd.css";
-import { StoreContext } from "../../context";
 
-function Header() {
+type Props = {
+  cartItems: IFlower[];
+  handleRemoveFromCart: (id: string) => void
+};
+
+const Header: React.FC<Props> = ({ cartItems, handleRemoveFromCart }) => {
   const [showSearch, setShow] = useState(false);
   const [showCart, setShowCart] = useState(false);
-  const items = useContext(StoreContext);
-
-  const cartItems = items?.items
 
   const handleShowSearch = () => {
     setShow(!showSearch);
@@ -52,25 +53,26 @@ function Header() {
           />
         </IconWrapper>
         <IconWrapper>
-          <img
-            onClick={handleShowCart}
-            className="header__icon-cart"
-            src="/img/cart.svg"
-            alt=""
-          />
-          {/* <Badge count={items?.items.length} size='small'> */}
+          <Badge count={cartItems.length} size="small">
+            <img
+              onClick={handleShowCart}
+              className="header__icon-cart"
+              src="/img/cart.svg"
+              alt=""
+            />
             <Cart
               cartItems={cartItems}
               onShow={showCart}
               onCancel={handleCancelCart}
               onOkClick={handleOkClick}
+              onRemove={handleRemoveFromCart}
             />
-          {/* </Badge> */}
+          </Badge>
         </IconWrapper>
       </HeaderGroup>
     </HeaderContainer>
   );
-}
+};
 
 const HeaderContainer = styled.header`
   display: flex;

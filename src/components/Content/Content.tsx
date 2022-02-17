@@ -1,20 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { StoreContext } from "../../context";
 import Banner from "../Banner/Banner";
 import SubBanner from "../Banner/SubBanner";
 import FlowerList from "./FlowerList";
 import Title from "./Title";
 
-const Content: React.FC = () => {
-  const context = useContext(StoreContext);
+type Props = {
+    handleAddToCart: (item: IFlower) => void
+}
 
-  const handleAddToCart = (item: IFlower) => {
-    context?.setItems!((prev) => {
-      return [...prev, { ...item }];
-    });
-  };
-
+const Content: React.FC<Props> = ({ handleAddToCart }) => {
   return (
     <ContentWrapper className="content">
       <div className="home">
@@ -52,7 +47,7 @@ const Content: React.FC = () => {
             rightArrow="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
           />
         </ContentTitle>
-        <FlowerList handleAddItemToCart={handleAddToCart} />
+        {/* <FlowerList handleAddItemToCart={handleAddToCart} /> */}
       </div>
     </ContentWrapper>
   );

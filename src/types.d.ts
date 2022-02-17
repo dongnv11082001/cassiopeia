@@ -1,12 +1,16 @@
 interface IFlower {
   id: string;
-  price: string;
+  price: number;
   name: string;
   image: string;
-  amount: number
+  amount: number;
 }
 
 interface IStoreContext {
-    items: IFlower[];
-    setItems?: React.Dispatch<React.SetStateAction<IFlower[]>>;
+  setCartItems?: React.Dispatch<React.SetStateAction<IFlower[]>>;
+  cartItems?: IFlower[];
+  handleAddToCart?: (item: IFlower) => void;
+  handleRemoveFromCart?: (id: string) => void;
 }
+
+interface ICartItem {}

@@ -1,16 +1,22 @@
-import { useContext } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { StoreContext } from "../../../context";
 
 type Props = {
   handleAddItemToCart: (item: IFlower) => void;
 };
 
-const FlowerList: React.FC<Props> = ({ handleAddItemToCart }) => {
-  const flowers = useContext(StoreContext);
-  const data = flowers?.items.slice(0, 4);
-  console.log(flowers?.items.length);
-  
+const FlowerList: React.FC<Props> = ({ handleAddItemToCart,  }) => {
+  const [data, setData] = useState<IFlower[]>();
+
+  const url: string = "https://620c70a3b5736325938e3172.mockapi.io";
+  useEffect(() => {
+    const getItems = async () => {
+      const response = await fetch(`${url}/flowers`);
+      const items = await response.json();
+      setData(items);
+    };
+    getItems();
+  }, []);
 
   return (
     <ItemsWrapper>
@@ -22,9 +28,7 @@ const FlowerList: React.FC<Props> = ({ handleAddItemToCart }) => {
               <img
                 src="/img/cart.svg"
                 alt=""
-                onClick={() => {
-                  handleAddItemToCart(item);
-                }}
+                onClick={() => handleAddItemToCart(item)}
               />
               <img src="/img/search.svg" alt="" />
             </IconWrapper>
