@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { StoreContext } from "../../context";
+import { StoreContext } from "../../context/StoreContext";
 
 const AddedItem: React.FC = () => {
   const CartModalContext = useContext(StoreContext);

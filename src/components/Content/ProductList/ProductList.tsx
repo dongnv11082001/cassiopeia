@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
-import { StoreContext } from "../../../context";
+import { StoreContext } from "../../../context/StoreContext";
 
 type Props = {
   endpoint: string;

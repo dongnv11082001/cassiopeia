@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Banner from "../Banner/Banner";
 import SubBanner from "../Banner/SubBanner";
-import ProductList from "./ProductList";
-import Title from "./Title";
+import ProductList from "./ProductList/ProductList";
+import Title from "./Title/Title";
 
 type Props = {
 }

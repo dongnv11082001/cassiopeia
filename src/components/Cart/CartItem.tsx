@@ -3,7 +3,7 @@ import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
 import { Link, useParams } from "react-router-dom";
 import React, { useContext, useState } from "react";
 import { Counter } from "./Counter";
-import { StoreContext } from "../../context";
+import { StoreContext } from "../../context/StoreContext";
 
 type Props = {
   item: IFlower;

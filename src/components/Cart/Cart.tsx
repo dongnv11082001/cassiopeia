@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import "antd/lib/modal/style/css";
 import { useContext } from "react";
 import styled from "styled-components";
-import { StoreContext } from "../../context";
+import { StoreContext } from "../../context/StoreContext";
 import AddedItem from "./AddedItem";
 import { CartItem } from "./CartItem";
 

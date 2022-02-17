@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Search from "../Search";
-import Cart from "../Cart";
+import Search from "../Search/Search";
+import Cart from "../Cart/Cart";
 import { Badge } from "antd";
 import "antd/dist/antd.css";
-import { StoreContext } from "../../context";
+import { StoreContext } from "../../context/StoreContext";
 
 type Props = {
 };
