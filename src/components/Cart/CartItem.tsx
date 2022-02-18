@@ -13,6 +13,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
   const [quantity, setQuantity] = useState(1);
   const CartModalContext = useContext(StoreContext);
   const handleRemove = CartModalContext?.handleRemoveFromCart!;
+  const handleAdd = CartModalContext?.handleAddToCart!
   const { id } = useParams();
   const cartItems = CartModalContext?.cartItems!;
   const order = cartItems.map((item) => {
@@ -49,10 +50,9 @@ export const CartItem: React.FC<Props> = ({ item }) => {
         <div className="bottom-center">
           <div className="left-bottom-center">
             <Counter
-              price={item.price}
-              quantity={quantity}
-              handleIncrease={handleIncrease}
+              handleIncrease={handleAdd}
               handleDecrease={handleDecrease}
+              item={item}
             />
           </div>
           <div className="delete-btn" onClick={() => handleRemove(item.id)}>

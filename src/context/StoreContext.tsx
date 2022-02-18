@@ -5,7 +5,7 @@ const StoreContext = createContext<IStore | undefined>(undefined);
 const StoreContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [cartItems, setCartItems] = useState<IProduct[]>([]);
+  const [cartItems, setCartItems] = useState<IProduct[]| []>([]);
 
   const handleAddToCart = (clickedItem: IProduct) => {
     setCartItems((prev) => {

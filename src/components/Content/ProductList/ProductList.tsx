@@ -19,6 +19,7 @@ const ProductList: React.FC<Props> = ({ endpoint }) => {
       setData(items);
     };
     getItems();
+    
   }, []);
 
   return (
@@ -26,10 +27,10 @@ const ProductList: React.FC<Props> = ({ endpoint }) => {
       {data?.map((item) => (
         <Item key={item.id}>
           <ImageWrapper>
-            <img src={item.image} alt="" className="img" />
+            <img src={item.image} className="img" />
             <IconWrapper>
-              <img src="/img/cart.svg" alt="" onClick={() => handleAdd(item)} />
-              <img src="/img/search.svg" alt="" />
+              <img src="/img/cart.svg" onClick={() => handleAdd(item)} />
+              <img src="/img/search.svg" />
             </IconWrapper>
           </ImageWrapper>
           <p className="name">{item.name}</p>
@@ -45,6 +46,7 @@ const ItemsWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 60px;
+  cursor: pointer;
 
   & .img {
     width: 230px;

@@ -2,30 +2,28 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 type Props = {
-  price: number;
-  handleIncrease: () => void;
+  item: IProduct
+  handleIncrease: (item: IProduct) => void;
   handleDecrease: () => void;
-  quantity: number;
 };
 
 export const Counter: React.FC<Props> = ({
-  price,
+  item,
   handleIncrease,
   handleDecrease,
-  quantity,
 }) => {
   return (
     <CounterContainer>
       <div className="btn" onClick={handleDecrease}>
-        <button className="btn" disabled={quantity === 1}>
+        <button className="btn" disabled={item.amount > 0 && item.amount <= 1}>
           -
         </button>
       </div>
-      <div className="amount">{quantity >= 1 && quantity}</div>
-      <div className="btn" onClick={handleIncrease}>
+      <div className="amount">{item.amount >= 1 && item.amount}</div>
+      <div className="btn" onClick={() => handleIncrease(item)}>
         +
       </div>
-      {quantity > 1 && <StyledPrice>${quantity * price}</StyledPrice>}
+      {item.amount > 1 && <StyledPrice>${item.amount * item.price}</StyledPrice>}
     </CounterContainer>
   );
 };
