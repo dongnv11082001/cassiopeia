@@ -6,6 +6,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Homepage/Home";
+import FlowerPage from "./pages/FlowerPage/FlowerPage";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/flowers/:id" element={<FlowerPage />}/>
         </Routes>
         <Footer />
       </AppContainer>
