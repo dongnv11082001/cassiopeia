@@ -14,6 +14,7 @@ interface IStore {
   setCartItems?: React.Dispatch<React.SetStateAction<IFlower[]>>;
   handleAddToCart?: (item: IProduct) => void;
   handleRemoveFromCart?: (id: string) => void;
+  handleDecrease?: (item: IProduct) => void
 }
 
 interface IOrder {}

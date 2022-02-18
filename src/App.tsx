@@ -13,7 +13,7 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 
 function App() {
     return (
-        <div>
+        <>
             <AppContainer>
                 <div>
                     <Header/>
@@ -27,7 +27,7 @@ function App() {
                 </div>
             </AppContainer>
             <Footer/>
-        </div>
+        </>
     );
 }
 

@@ -1,7 +1,10 @@
-const PlantPage = () => {
+import React from "react";
+import ProductList from "../../components/Content/ProductList/ProductList";
+
+const PlantPage: React.FC = () => {
     return (
         <div>
-            Plant page
+            <ProductList endpoint={'/plants'}/>
         </div>
     )
 }

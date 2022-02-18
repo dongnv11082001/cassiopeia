@@ -3,8 +3,9 @@ import {useContext, useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {StoreContext} from "../../context/StoreContext";
 import styled from "styled-components";
-import {MinusOutlined, ShoppingCartOutlined} from "@ant-design/icons";
+import {ShoppingCartOutlined} from "@ant-design/icons";
 import {CounterContainer} from "../../components/Cart/Counter";
+import ProductList from "../../components/Content/ProductList/ProductList";
 
 const descriptions = [
     {title: "Bouquet contents", content: "No content yet"},
@@ -33,12 +34,19 @@ const tags = [
 const ProductPage = () => {
     const [item, setItem] = useState<IProduct>()
     const productContext = useContext(StoreContext)
-    const products = productContext?.cartItems
+    const [quantity, setQuantity] = useState(1)
+
     const {id} = useParams()
+
+    const products = productContext?.cartItems
 
     useEffect(() => {
         setItem(products?.find(product => product.id === id))
     }, [])
+
+    const handleIncrease = () => {
+
+    }
 
 
     return (
@@ -77,22 +85,23 @@ const ProductPage = () => {
                         <div className="title">{item?.name}</div>
                         <div className="price">${item?.price}</div>
                         <div className="counter-title">Count:</div>
-                        {/*<CounterContainer>*/}
-                        {/*    <div*/}
-                        {/*        className="btn"*/}
-                        {/*        onClick={() => {*/}
-                        {/*            if (item?.amount! <= 1) return;*/}
-                        {/*            (quantity - 1);*/}
-                        {/*        }}*/}
-                        {/*    >*/}
-                        {/*        -*/}
-                        {/*    </div>*/}
-                        {/*    <div className="amount">{item?.amount!}</div>*/}
-                        {/*    <div className="btn" onClick={() => setQuantity(quantity + 1)}>*/}
-                        {/*        +*/}
-                        {/*    </div>*/}
-                        {/*</CounterContainer>*/}
+                        <CounterContainer>
+                            <div
+                                className="btn"
+                                onClick={() => {
+                                    setQuantity(prev => prev - 1)
+                                    if (quantity <= 1) return;
+                                }}
+                            >
+                                -
+                            </div>
+                            <div className="amount">{quantity}</div>
+                            <div className="btn" onClick={() => setQuantity(prev => prev + 1)}>
+                                +
+                            </div>
+                        </CounterContainer>
                         <div className="descriptions">
+                            <div className='des'>Type: {item?.category}</div>
                             {item?.occasion && (
                                 <div className="des">Occasion: {item.occasion}</div>
                             )}
@@ -106,22 +115,12 @@ const ProductPage = () => {
                             <ShoppingCartOutlined/>
                         </div>
                     </div>
-                    {/*<Collapse*/}
-                    {/*    bordered={false}*/}
-                    {/*    expandIcon={({ isActive }) =>*/}
-                    {/*        isActive ? <MinusOutlined /> : <PlusOutlined />*/}
-                    {/*    }*/}
-                    {/*    style={{ userSelect: "none" }}*/}
-                    {/*    expandIconPosition="right"*/}
-                    {/*>*/}
-                    {/*    {descriptions.map((item, i) => (*/}
-                    {/*        <Panel key={i} header={item.title}>*/}
-                    {/*            <p>{item.content}</p>*/}
-                    {/*        </Panel>*/}
-                    {/*    ))}*/}
-                    {/*</Collapse>*/}
                 </div>
             </div>
+            <Suggestion>
+                <h1>You may like</h1>
+                <ProductList endpoint={'/flowers'}/>
+            </Suggestion>
         </Wrapper>
     )
 }
@@ -227,6 +226,10 @@ const Wrapper = styled.div`
       }
     }
   }
+`
+const Suggestion = styled.div`
+    margin-top: 100px;
+    margin-bottom: 30px;
 `
 
 export default ProductPage
