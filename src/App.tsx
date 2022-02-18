@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Homepage/Home";
 import FlowerPage from "./pages/FlowerPage/FlowerPage";
 import Footer from "./components/Footer/Footer";
+import PlantPage from "./pages/PlantPage/PlantPage";
 
 function App() {
     return (
@@ -16,8 +17,9 @@ function App() {
                 <Header/>
                 <Navbar/>
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/flowers/:id" element={<FlowerPage/>}/>
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/flowers" element={<FlowerPage />}/>
+                    <Route path='/plants' element={<PlantPage />} />
                 </Routes>
                 <Footer/>
             </AppContainer>

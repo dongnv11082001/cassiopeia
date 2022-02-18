@@ -3,24 +3,24 @@ import styled from "styled-components"
 
 const NavbarTabs = [
     {
-        text: 'Flower',
-        directTo: '/flower'
+        text: 'Flowers',
+        directTo: 'flowers'
     },
     {
         text: 'Plants',
-        directTo: '/plants'
+        directTo: 'plants'
     },
     {
         text: 'Gifts',
-        directTo: '/gifts'
+        directTo: 'gifts'
     },
     {
         text: 'Discounts',
-        directTo: '/discounts'
+        directTo: 'discounts'
     },
     {
         text: 'About us',
-        directTo: '/about-us'
+        directTo: 'about-us'
     }
 ]
 
