@@ -1,60 +1,87 @@
-import React, { useContext, useMemo } from "react";
-import { Link } from "react-router-dom";
+import React, {useContext, useMemo, useState} from "react";
+import {Link} from "react-router-dom";
 import styled from "styled-components";
-import { StoreContext } from "../../context/StoreContext";
+import {StoreContext} from "../../context/StoreContext";
 
 const AddedItem: React.FC = () => {
-  const CartModalContext = useContext(StoreContext);
+    const CartModalContext = useContext(StoreContext);
+    const [code, setCode] = useState('');
+    const [text, setText] = useState('')
+    const [discount, setDiscount] = useState(0)
 
-  const handleRemoveAll = () => {
-    CartModalContext?.setCartItems!([]);
-  };
+    const handleApplyCode = () => {
+        if (code === '20DOLLARSOFF') {
+            setText('Applied')
+            CartModalContext?.setCartItems!((prev) => {
+                return prev.map(item => {
+                    return {...item, discount: 20}
+                })
+            })
+        } else {
+            setText('Promocode is not available! You can try [20DOLLARSOFF]')
+        }
 
-  const total = useMemo(() => {
-    const result = CartModalContext?.cartItems?.reduce((prev, cur) => {
-      return prev + cur.amount! * cur.price!;
-    }, 0);
+        setDiscount(20)
+    }
 
-    return result;
-  }, [CartModalContext?.cartItems]);
+    const handleRemoveAll = () => {
+        CartModalContext?.setCartItems!([]);
+    };
 
-  return (
-    <>
-      <AddedCart>
-        <div className="remove-all-btn" onClick={handleRemoveAll}>
-          Remove all
-        </div>
-        <div className="promocode-center">
-          <input type="text" placeholder="Add promocode" />
-          <div className="apply-btn">Apply</div>
-        </div>
-        <div className="payment-center">
-          <div className="payment-info">
-            <div className="key">Shipping</div>
-            <div className="value">FREE</div>
-          </div>
-          <div className="payment-info">
-            <div className="key">Order total</div>
-            <div className="value">${total}</div>
-          </div>
-        </div>
-        <Link to="/checkout">
-          <div className="checkout-btn-wrapper">
-            <div className="checkout-btn">
-              <span>Checkout</span>
-              <div className="arrow-wrapper">
-                <img
-                  className="arrow"
-                  src="https://cassiopeia.store/svgs/line-right-arrow.svg"
-                  alt="arrow"
-                />
-              </div>
-            </div>
-          </div>
-        </Link>
-      </AddedCart>
-    </>
-  );
+    const total = useMemo(() => {
+        const result = CartModalContext?.cartItems?.reduce((prev, cur) => {
+            if (cur.discount) return prev + (cur.amount! * cur.price!) - cur?.discount!;
+            return prev + (cur.amount! * cur.price!);
+        }, 0);
+
+        return result;
+    }, [CartModalContext?.cartItems]);
+
+    return (
+        <>
+            <AddedCart>
+                <div className="remove-all-btn" onClick={handleRemoveAll}>
+                    Remove all
+                </div>
+                <div className="promocode-center">
+                    <input type="text" placeholder="Add promocode" value={code}
+                           onChange={e => setCode(e.target.value)}/>
+                    <div className="apply-btn"
+                         onClick={handleApplyCode}>Apply
+                    </div>
+                </div>
+                {text && <Text code={code}>{text}</Text>}
+                <div className="payment-center">
+                    <div className="payment-info">
+                        <div className="key">Shipping</div>
+                        <div className="value">FREE</div>
+                    </div>
+                    {discount > 0 && <div className={'payment-info'}>
+                        <div className='key'>Promocode</div>
+                        <div className='value'>-${discount}</div>
+                    </div>}
+                    <div className="payment-info">
+                        <div className="key">Order total</div>
+                        <div className="value">${total}</div>
+                    </div>
+                </div>
+                <Link to="/checkout">
+                    <div className="checkout-btn-wrapper">
+                        <div className="checkout-btn">
+                            <span>Checkout</span>
+                            <div className="arrow-wrapper">
+                                <img
+                                    className="arrow"
+                                    src="https://cassiopeia.store/svgs/line-right-arrow.svg"
+                                    alt="arrow"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+            </AddedCart>
+        </>
+    );
 };
 
 const AddedCart = styled.div`
@@ -87,7 +114,7 @@ const AddedCart = styled.div`
       border-radius: 5px;
       width: 150px;
       text-align: center;
-      transition: background-color 0.2s ease;
+      transition: background-color 020DOLLARSOFF.2s ease;
       cursor: pointer;
       &:hover {
         background-color: #595cff;
@@ -143,5 +170,9 @@ const AddedCart = styled.div`
     font-weight: 500;
   }
 `;
+
+const Text = styled.h3<{ code: string }>`
+    color: ${props => (props.code === '20DOLLARSOFF') ? 'green' : 'red'};
+`
 
 export default AddedItem;

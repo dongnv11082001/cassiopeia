@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
 
@@ -10,19 +10,19 @@ import FlowerPage from "./pages/FlowerPage/FlowerPage";
 import Footer from "./components/Footer/Footer";
 
 function App() {
-  return (
-    <div>
-      <AppContainer>
-        <Header />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/flowers/:id" element={<FlowerPage />}/>
-        </Routes>
-        <Footer />
-      </AppContainer>
-    </div>
-  );
+    return (
+        <div>
+            <AppContainer>
+                <Header/>
+                <Navbar/>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/flowers/:id" element={<FlowerPage/>}/>
+                </Routes>
+                <Footer/>
+            </AppContainer>
+        </div>
+    );
 }
 
 export default App;

@@ -1,4 +1,5 @@
 interface IProduct {
+  discount?: number;
   id: string;
   price: number;
   name: string;

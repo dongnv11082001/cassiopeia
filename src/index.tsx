@@ -2,16 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
-import { StoreContextProvider } from "./context/StoreContext";
+import {BrowserRouter} from "react-router-dom";
+import {StoreContextProvider} from "./context/StoreContext";
 
 ReactDOM.render(
-  //   <React.StrictMode>
-  <BrowserRouter>
+    // <React.StrictMode>
     <StoreContextProvider>
-      <App />
-    </StoreContextProvider>
-  </BrowserRouter>,
-  //   </React.StrictMode>
-  document.getElementById("root")
-);
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </StoreContextProvider>,
+    // </React.StrictMode>,
+    document.getElementById("root")
+)
+;
