@@ -1,67 +1,72 @@
 import styled from "styled-components";
-import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
-import { Link, useParams } from "react-router-dom";
-import React, { useContext, useState } from "react";
-import { Counter } from "./Counter";
-import { StoreContext } from "../../context/StoreContext";
+import {DeleteOutlined, SearchOutlined} from "@ant-design/icons";
+import {Link, useParams} from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {Counter} from "./Counter";
+import {StoreContext} from "../../context/StoreContext";
 
 type Props = {
-  item: IProduct;
+    item: IProduct;
 };
 
-export const CartItem: React.FC<Props> = ({ item }) => {
-  const [quantity, setQuantity] = useState(1);
-  const CartModalContext = useContext(StoreContext);
-  const handleRemove = CartModalContext?.handleRemoveFromCart!;
-  const handleAdd = CartModalContext?.handleAddToCart!
-  const { id } = useParams();
-  const cartItems = CartModalContext?.cartItems!;
-  const order = cartItems.map((item) => {
-    return { ...item, amount: quantity };
-  });
+export const CartItem: React.FC<Props> = ({item}) => {
+    const [quantity, setQuantity] = useState(1);
+    const CartModalContext = useContext(StoreContext);
+    const handleRemove = CartModalContext?.handleRemoveFromCart!;
+    const handleIncrease = CartModalContext?.handleAddToCart!
 
-  const handleIncrease = () => {
-    setQuantity((prev) => prev + 1);
-    CartModalContext?.setCartItems!(order);
-  };
+    const cartItems = CartModalContext?.cartItems!;
+    const order = cartItems.map((item) => {
+        return {...item, amount: quantity};
+    });
 
-  const handleDecrease = () => {
-    setQuantity((prev) => prev - 1);
-    CartModalContext?.setCartItems!(order);
-  };
+    const handleDecrease = (clickedItem: IProduct) => {
+        CartModalContext?.setCartItems!((prev) => {
+            const isItemInCart = prev?.find((item) => item.id === clickedItem.id);
 
-  return (
-    <CartItemContainer>
-      <div className="image-wrapper">
-        <Img src={item.image} alt="avatar" />
-        <div className="detail-btn-wrapper">
-          <Link to={"/flowers/" + id}>
-            <div className="detail-button">
-              <SearchOutlined />
+            if (isItemInCart) {
+                return prev.map((item) => {
+                    return item.id === clickedItem.id
+                        ? {...item, amount: item.amount - 1}
+                        : item;
+                });
+            }
+            return [...prev, {...clickedItem, amount: 1}];
+        });
+    }
+
+    return (
+        <CartItemContainer>
+            <div className="image-wrapper">
+                <Img src={item.image} alt="avatar"/>
+                <div className="detail-btn-wrapper">
+                    <Link to={"/flowers/" + item.id}>
+                        <div className="detail-button">
+                            <SearchOutlined/>
+                        </div>
+                    </Link>
+                </div>
             </div>
-          </Link>
-        </div>
-      </div>
-      <div className="control-center">
-        <div className="top-center">
-          <div className="product-name">{item.name}</div>
-          <div className="price">${item.price}</div>
-        </div>
-        <div className="bottom-center">
-          <div className="left-bottom-center">
-            <Counter
-              handleIncrease={handleAdd}
-              handleDecrease={handleDecrease}
-              item={item}
-            />
-          </div>
-          <div className="delete-btn" onClick={() => handleRemove(item.id)}>
-            {<DeleteOutlined />}
-          </div>
-        </div>
-      </div>
-    </CartItemContainer>
-  );
+            <div className="control-center">
+                <div className="top-center">
+                    <div className="product-name">{item.name}</div>
+                    <div className="price">${item.price}</div>
+                </div>
+                <div className="bottom-center">
+                    <div className="left-bottom-center">
+                        <Counter
+                            handleIncrease={handleIncrease}
+                            handleDecrease={handleDecrease}
+                            item={item}
+                        />
+                    </div>
+                    <div className="delete-btn" onClick={() => handleRemove(item.id)}>
+                        {<DeleteOutlined/>}
+                    </div>
+                </div>
+            </div>
+        </CartItemContainer>
+    );
 };
 
 const CartItemContainer = styled.div`

@@ -5,6 +5,8 @@ interface IProduct {
   name: string;
   image: string;
   amount: number;
+  category: string
+  occasion: string
 }
 
 interface IStore {

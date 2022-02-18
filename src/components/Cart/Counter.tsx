@@ -4,7 +4,7 @@ import styled from "styled-components";
 type Props = {
   item: IProduct
   handleIncrease: (item: IProduct) => void;
-  handleDecrease: () => void;
+  handleDecrease: (item: IProduct) => void;
 };
 
 export const Counter: React.FC<Props> = ({
@@ -14,7 +14,7 @@ export const Counter: React.FC<Props> = ({
 }) => {
   return (
     <CounterContainer>
-      <div className="btn" onClick={handleDecrease}>
+      <div className="btn" onClick={() => handleDecrease(item)}>
         <button className="btn" disabled={item.amount > 0 && item.amount <= 1}>
           -
         </button>
