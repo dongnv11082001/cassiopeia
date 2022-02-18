@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Search from "../Search/Search";
-import Cart from "../Cart/Cart";
 import { Badge } from "antd";
 import "antd/dist/antd.css";
+
+// components
+import Search from "../Search/Search";
 import { StoreContext } from "../../context/StoreContext";
+import { CartModal } from "../Cart/CartModal";
 
 type Props = {
 };
@@ -61,7 +63,7 @@ const Header: React.FC<Props> = () => {
               src="/img/cart.svg"
               alt=""
             />
-            <Cart
+            <CartModal
               onShow={showCart}
               onCancel={handleCancelCart}
               onOkClick={handleOkClick}

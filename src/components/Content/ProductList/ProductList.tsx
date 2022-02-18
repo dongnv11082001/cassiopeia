@@ -7,7 +7,7 @@ type Props = {
 };
 
 const ProductList: React.FC<Props> = ({ endpoint }) => {
-  const [data, setData] = useState<IFlower[]>();
+  const [data, setData] = useState<IProduct[]>();
   const store = useContext(StoreContext);
   const handleAdd = store?.handleAddToCart!;
 

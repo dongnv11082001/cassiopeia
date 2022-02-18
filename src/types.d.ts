@@ -1,15 +1,15 @@
-interface IFlower {
+interface IProduct {
   id: string;
   price: number;
   name: string;
   image: string;
-  amount?: number;
+  amount: number;
 }
 
-interface IStoreContext {
+interface IStore {
+  cartItems?: IProduct[];
   setCartItems?: React.Dispatch<React.SetStateAction<IFlower[]>>;
-  cartItems?: IFlower[];
-  handleAddToCart?: (item: IFlower) => void;
+  handleAddToCart?: (item: IProduct) => void;
   handleRemoveFromCart?: (id: string) => void;
 }
 

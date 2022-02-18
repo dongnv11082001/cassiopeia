@@ -6,7 +6,7 @@ import { Counter } from "./Counter";
 import { StoreContext } from "../../context/StoreContext";
 
 type Props = {
-  item: IFlower;
+  item: IProduct;
 };
 
 export const CartItem: React.FC<Props> = ({ item }) => {

@@ -1,18 +1,29 @@
 import React, { createContext, useState } from "react";
 
-const StoreContext = createContext<IStoreContext | undefined>(undefined);
+const StoreContext = createContext<IStore | undefined>(undefined);
 
 const StoreContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [cartItems, setCartItems] = useState<IFlower[]>([]);
+  const [cartItems, setCartItems] = useState<IProduct[]>([]);
 
-  const handleAddToCart = (item: IFlower) => {
-    setCartItems((prev) => [...prev, { ...item }]);
+  const handleAddToCart = (clickedItem: IProduct) => {
+    setCartItems((prev) => {
+      const isItemInCart = prev?.find((item) => item.id === clickedItem.id);
+
+      if (isItemInCart) {
+        return prev.map((item) => {
+          return item.id === clickedItem.id
+            ? { ...item, amount: item.amount + 1 }
+            : item;
+        });
+      }
+      return [...prev, { ...clickedItem, amount: 1 }];
+    });
   };
 
   const handleRemoveFromCart = (id: string) => {
-    const filteredCartItems = cartItems.filter((item) => item.id !== id);
+    const filteredCartItems = cartItems!.filter((item) => item.id !== id);
     setCartItems(filteredCartItems);
   };
 
@@ -20,7 +31,7 @@ const StoreContextProvider: React.FC<{ children: React.ReactNode }> = ({
     handleAddToCart,
     handleRemoveFromCart,
     cartItems,
-    setCartItems,
+    setCartItems
   };
 
   return (
