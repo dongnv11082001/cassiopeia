@@ -81,7 +81,6 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   height: 56px;
   margin: 0 auto;
-  max-width: 1160px;
 `;
 
 const HeaderLocation = styled.div`

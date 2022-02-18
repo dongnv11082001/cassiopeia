@@ -17,4 +17,6 @@ interface IStore {
   handleDecrease?: (item: IProduct) => void
 }
 
-interface IOrder {}
+interface IOrder {
+  orders: IProduct[]
+}

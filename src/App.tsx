@@ -10,12 +10,15 @@ import FlowerPage from "./pages/FlowerPage/FlowerPage";
 import Footer from "./components/Footer/Footer";
 import PlantPage from "./pages/PlantPage/PlantPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
+import GiftPage from "./pages/GiftPage/GiftPage";
+import DiscountsPage from "./pages/DiscountsPage/DiscountsPage";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 function App() {
     return (
         <>
             <AppContainer>
-                <div>
+                <div className={'content'}>
                     <Header/>
                     <Navbar/>
                     <Routes>
@@ -23,6 +26,9 @@ function App() {
                         <Route path="/flowers" element={<FlowerPage/>}/>
                         <Route path='/plants' element={<PlantPage/>}/>
                         <Route path='/flowers/:id' element={<ProductPage/>}/>
+                        <Route path={'/gifts'} element={<GiftPage/>} />
+                        <Route path={'/discounts'} element={<DiscountsPage/>} />
+                        <Route path={'/checkout'} element={<CheckoutPage/> } />
                     </Routes>
                 </div>
             </AppContainer>
@@ -37,4 +43,9 @@ const AppContainer = styled.div`
     display: flex;
     justify-content: center;
     align-item: center;
+  
+  & .content {
+    max-width: 1160px;
+    width: 100%;
+  }
 `;
