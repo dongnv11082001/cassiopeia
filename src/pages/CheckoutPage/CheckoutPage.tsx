@@ -5,6 +5,7 @@ import Progress from "../../components/CheckoutProgress/Progress";
 import Contact from "../../components/CheckoutContact/Contact";
 import Order from "../../components/CheckoutOrder/Order";
 import {StoreContext} from "../../context/StoreContext";
+import Shipping from "../../components/CheckoutShipping/Shipping";
 
 const CheckoutPage: React.FC = () => {
     const items = useContext(StoreContext)
@@ -51,9 +52,7 @@ const CheckoutPage: React.FC = () => {
                         <Contact/>
                     )}
                     {progress === 'shipping' && (
-                        <div>
-                            {progress}
-                        </div>
+                        <Shipping/>
                     )}
                 <ButtonWrapper>
                     <div>
