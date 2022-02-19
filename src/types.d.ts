@@ -7,6 +7,7 @@ interface IProduct {
   amount: number;
   category: string
   occasion: string
+  address: string
 }
 
 interface IStore {

@@ -6,10 +6,12 @@ import Contact from "../../components/CheckoutContact/Contact";
 import Order from "../../components/CheckoutOrder/Order";
 import {StoreContext} from "../../context/StoreContext";
 import Shipping from "../../components/CheckoutShipping/Shipping";
+import Payment from "../../components/CheckoutPayment/Payment";
 
 const CheckoutPage: React.FC = () => {
     const items = useContext(StoreContext)
     const [progress, setProgress] = useState('contacts')
+    const [buttonProgress, setButtonProgress] = useState('Shipping')
 
     const total = items?.cartItems?.reduce((prev, cur) => {
         if (cur.discount) return prev + (cur.amount! * cur.price!) - cur?.discount!;
@@ -30,9 +32,11 @@ const CheckoutPage: React.FC = () => {
     const handleNextClick = () => {
         if (progress === 'contacts') {
             setProgress('shipping')
+            setButtonProgress('Payment')
         }
         if (progress === 'shipping') {
             setProgress('payment')
+            setButtonProgress('Submit')
         }
         if (progress === 'payment') {
             setProgress('submit')
@@ -54,6 +58,9 @@ const CheckoutPage: React.FC = () => {
                     {progress === 'shipping' && (
                         <Shipping/>
                     )}
+                    {progress === 'shipping' && (
+                        <Payment/>
+                    )}
                 <ButtonWrapper>
                     <div>
                         <PrevButton onClick={handlePrevClick} disabled={progress === 'contacts'}>
@@ -63,7 +70,7 @@ const CheckoutPage: React.FC = () => {
                     </div>
                     <div>
                         <NextButton onClick={handleNextClick}>
-                            Shipping
+                            <span>{buttonProgress}</span>
                             <img src={'https://cassiopeia.store/svgs/line-right-arrow.svg'}/>
                         </NextButton>
                     </div>
