@@ -1,22 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import OrderItem from "./OrderItem/OrderItem";
 
-const Order = () => {
-  return (
-      <OrderWrapper>
-          <div>
-              <Name>Order total ({0})</Name>
-          </div>
-          <Field>
-              <span>Shipping</span>
-              <span>FREE</span>
-          </Field>
-          <Field>
-              <span>Order Total</span>
-              <span>${0.00}</span>
-          </Field>
-      </OrderWrapper>
-  )
+type Props = {
+    items: IProduct[]
+    total: number
+}
+
+const Order: React.FC<Props> = ({items, total}) => {
+    return (
+        <OrderWrapper>
+            <div>
+                <Name>Order total ({items.length})</Name>
+            </div>
+            <div className="products">
+                {items.map(item => (
+                    <OrderItem
+                        key={item.id}
+                        item={item}
+                    />
+                ))}
+            </div>
+            <Field>
+                <span>Shipping</span>
+                <span>FREE</span>
+            </Field>
+            <Field>
+                <span>Order Total</span>
+                <span>${total}</span>
+            </Field>
+        </OrderWrapper>
+    )
 }
 
 const OrderWrapper = styled.div`

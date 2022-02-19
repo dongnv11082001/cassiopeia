@@ -69,7 +69,7 @@ export const CartItem: React.FC<Props> = ({item}) => {
     );
 };
 
-const CartItemContainer = styled.div`
+export const CartItemContainer = styled.div`
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
@@ -119,9 +119,6 @@ const CartItemContainer = styled.div`
       white-space: normal;
       .product-name {
         max-width: 235px;
-      }
-      .price {
-        font-weight: 500;
       }
     }
     .bottom-center {

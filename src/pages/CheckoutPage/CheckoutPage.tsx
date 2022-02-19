@@ -1,12 +1,43 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {Breadcrumb} from "antd";
-import ProductList from "../../components/Content/ProductList/ProductList";
 import styled from "styled-components";
 import Progress from "../../components/CheckoutProgress/Progress";
 import Contact from "../../components/CheckoutContact/Contact";
 import Order from "../../components/CheckoutOrder/Order";
+import {StoreContext} from "../../context/StoreContext";
 
-const CheckoutPage = () => {
+const CheckoutPage: React.FC = () => {
+    const items = useContext(StoreContext)
+    const [progress, setProgress] = useState('contacts')
+
+    const total = items?.cartItems?.reduce((prev, cur) => {
+        if (cur.discount) return prev + (cur.amount! * cur.price!) - cur?.discount!;
+        return prev + (cur.amount! * cur.price!);
+    }, 0);
+
+    console.log(progress)
+
+    const handlePrevClick = () => {
+        if (progress === 'shipping') {
+            setProgress('contacts')
+        }
+        if (progress === 'payment') {
+            setProgress('shipping')
+        }
+    }
+
+    const handleNextClick = () => {
+        if (progress === 'contacts') {
+            setProgress('shipping')
+        }
+        if (progress === 'shipping') {
+            setProgress('payment')
+        }
+        if (progress === 'payment') {
+            setProgress('submit')
+        }
+    }
+
     return (
         <Wrapper>
             <div>
@@ -16,23 +47,30 @@ const CheckoutPage = () => {
                 </Breadcrumb>
                 <div><Title>Checkout</Title></div>
                 <Progress/>
-                <Contact/>
+                    {progress === 'contacts' && (
+                        <Contact/>
+                    )}
+                    {progress === 'shipping' && (
+                        <div>
+                            {progress}
+                        </div>
+                    )}
                 <ButtonWrapper>
                     <div>
-                        <PrevButton>
+                        <PrevButton onClick={handlePrevClick} disabled={progress === 'contacts'}>
                             <img src={'https://cassiopeia.store/svgs/line-left-arrow-black.svg'}/>
                             Back step
                         </PrevButton>
                     </div>
                     <div>
-                        <NextButton>
+                        <NextButton onClick={handleNextClick}>
                             Shipping
                             <img src={'https://cassiopeia.store/svgs/line-right-arrow.svg'}/>
                         </NextButton>
                     </div>
                 </ButtonWrapper>
             </div>
-            <Order/>
+            <Order items={items?.cartItems!} total={total!}/>
         </Wrapper>
     )
 }

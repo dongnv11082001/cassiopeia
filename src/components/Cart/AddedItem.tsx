@@ -28,7 +28,7 @@ const AddedItem: React.FC = () => {
         CartModalContext?.setCartItems!([]);
     };
 
-    const total = useMemo(() => {
+     const total = useMemo(() => {
         const result = CartModalContext?.cartItems?.reduce((prev, cur) => {
             if (cur.discount) return prev + (cur.amount! * cur.price!) - cur?.discount!;
             return prev + (cur.amount! * cur.price!);
@@ -172,7 +172,7 @@ const AddedCart = styled.div`
 `;
 
 const Text = styled.h3<{ code: string }>`
-    color: ${props => (props.code === '20DOLLARSOFF') ? 'green' : 'red'};
+  color: ${props => (props.code === '20DOLLARSOFF') ? 'green' : 'red'};
 `
 
 export default AddedItem;
