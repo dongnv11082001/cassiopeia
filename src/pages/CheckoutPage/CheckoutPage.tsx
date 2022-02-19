@@ -1,97 +1,123 @@
-import React, {useContext, useState} from "react";
-import {Breadcrumb} from "antd";
+import React, { useContext, useState } from "react";
+import { Breadcrumb } from "antd";
 import styled from "styled-components";
 import Progress from "../../components/CheckoutProgress/Progress";
 import Contact from "../../components/CheckoutContact/Contact";
 import Order from "../../components/CheckoutOrder/Order";
-import {StoreContext} from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContext";
 import Shipping from "../../components/CheckoutShipping/Shipping";
 import Payment from "../../components/CheckoutPayment/Payment";
+import { Link } from "react-router-dom";
 
 const CheckoutPage: React.FC = () => {
-    const items = useContext(StoreContext)
-    const [progress, setProgress] = useState('contacts')
-    const [buttonProgress, setButtonProgress] = useState('Shipping')
+  const items = useContext(StoreContext);
+  const [progress, setProgress] = useState("contacts");
+  const [buttonProgress, setButtonProgress] = useState("Shipping");
 
-    const total = items?.cartItems?.reduce((prev, cur) => {
-        if (cur.discount) return prev + (cur.amount! * cur.price!) - cur?.discount!;
-        return prev + (cur.amount! * cur.price!);
-    }, 0);
+  const total = items?.cartItems?.reduce((prev, cur) => {
+    if (cur.discount) return prev + cur.amount! * cur.price! - cur?.discount!;
+    return prev + cur.amount! * cur.price!;
+  }, 0);
 
-    console.log(progress)
-
-    const handlePrevClick = () => {
-        if (progress === 'shipping') {
-            setProgress('contacts')
-        }
-        if (progress === 'payment') {
-            setProgress('shipping')
-        }
+  const handlePrevClick = () => {
+    if (progress === "shipping") {
+      setProgress("contacts");
+      setButtonProgress("Shipping");
     }
-
-    const handleNextClick = () => {
-        if (progress === 'contacts') {
-            setProgress('shipping')
-            setButtonProgress('Payment')
-        }
-        if (progress === 'shipping') {
-            setProgress('payment')
-            setButtonProgress('Submit')
-        }
-        if (progress === 'payment') {
-            setProgress('submit')
-        }
+    if (progress === "payment") {
+      setProgress("shipping");
+      setButtonProgress("Payment");
     }
+    if (progress === "submit") {
+      setProgress("payment");
+      setButtonProgress("Submit");
+    }
+  };
 
-    return (
-        <Wrapper>
-            <div>
-                <Breadcrumb>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>Checkout</Breadcrumb.Item>
-                </Breadcrumb>
-                <div><Title>Checkout</Title></div>
-                <Progress/>
-                    {progress === 'contacts' && (
-                        <Contact/>
-                    )}
-                    {progress === 'shipping' && (
-                        <Shipping/>
-                    )}
-                    {progress === 'shipping' && (
-                        <Payment/>
-                    )}
-                <ButtonWrapper>
-                    <div>
-                        <PrevButton onClick={handlePrevClick} disabled={progress === 'contacts'}>
-                            <img src={'https://cassiopeia.store/svgs/line-left-arrow-black.svg'}/>
-                            Back step
-                        </PrevButton>
-                    </div>
-                    <div>
-                        <NextButton onClick={handleNextClick}>
-                            <span>{buttonProgress}</span>
-                            <img src={'https://cassiopeia.store/svgs/line-right-arrow.svg'}/>
-                        </NextButton>
-                    </div>
-                </ButtonWrapper>
-            </div>
-            <Order items={items?.cartItems!} total={total!}/>
-        </Wrapper>
-    )
-}
+  const handleNextClick = () => {
+    if (progress === "contacts") {
+      setProgress("shipping");
+      setButtonProgress("Payment");
+    }
+    if (progress === "shipping") {
+      setProgress("payment");
+      setButtonProgress("Submit");
+    }
+    if (progress === "payment") {
+      setProgress("submit");
+      setButtonProgress("");
+    }
+  };
+
+  return (
+    <Wrapper>
+      <div>
+        <Breadcrumb>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Checkout</Breadcrumb.Item>
+        </Breadcrumb>
+        <div>
+          <Title>Checkout</Title>
+        </div>
+        <Progress />
+        {progress === "contacts" && <Contact />}
+        {progress === "shipping" && <Shipping />}
+        {progress === "payment" && <Payment />}
+        <ButtonWrapper>
+          <div>
+            {buttonProgress !== "" && (
+              <PrevButton
+                onClick={handlePrevClick}
+                disabled={progress === "contacts"}
+              >
+                <img
+                  src={
+                    "https://cassiopeia.store/svgs/line-left-arrow-black.svg"
+                  }
+                />
+                Back step
+              </PrevButton>
+            )}
+            {buttonProgress === "" && (
+              <PrevButton>
+                <Link to={"/"}>Come back homepage</Link>
+                <img
+                  src={
+                    "https://cassiopeia.store/svgs/line-right-arrow-black.svg"
+                  }
+                />
+              </PrevButton>
+            )}
+          </div>
+          <div>
+            {buttonProgress !== "" && (
+              <NextButton onClick={handleNextClick}>
+                <span>{buttonProgress}</span>
+                <img
+                  src={"https://cassiopeia.store/svgs/line-right-arrow.svg"}
+                />
+              </NextButton>
+            )}
+            {buttonProgress === "" && <></>}
+          </div>
+        </ButtonWrapper>
+      </div>
+      <Order items={items?.cartItems!} total={total!} />
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   margin-bottom: 50px;
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const Title = styled.h1`
   margin: 20px 0 40px 0;
   font-weight: 500;
   font-size: 32px;
-`
+`;
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -101,14 +127,14 @@ const ButtonWrapper = styled.div`
   & button img {
     margin: 0 10px;
   }
-`
+`;
 
 const PrevButton = styled.button`
   border: none;
   height: 46px;
   cursor: pointer;
   background: transparent;
-`
+`;
 
 const NextButton = styled.button`
   border: none;
@@ -119,6 +145,6 @@ const NextButton = styled.button`
   width: 175px;
   border-radius: 8px;
   cursor: pointer;
-`
+`;
 
-export default CheckoutPage
+export default CheckoutPage;

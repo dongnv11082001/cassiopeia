@@ -85,7 +85,7 @@ const Shipping: React.FC = () => {
             <Text className="checkout-form-title">
               Date {"&"} time of receipt
             </Text>
-            <TimeContainer className="pickup-input-wrapper">
+            <div className="pickup-input-wrapper">
               <input
                 type="text"
                 className="checkout-form-input"
@@ -96,7 +96,7 @@ const Shipping: React.FC = () => {
                 className="checkout-form-input"
                 placeholder="00:00"
               />
-            </TimeContainer>
+            </div>
           </div>
         </>
       )}
@@ -162,22 +162,6 @@ const AddressContainer = styled.div`
     border: none;
     background-color: #f0f0f9;
     margin-left: 20px;
-    padding-left: 20px;
-  }
-`;
-
-const TimeContainer = styled.div`
-  display: flex;
-  margin-bottom: 40px;
-  align-items: center;
-  height: 40px;
-
-  & input {
-    height: 40px;
-    flex: 1;
-    border: none;
-    background-color: #f0f0f9;
-    margin-right: 20px;
     padding-left: 20px;
   }
 `;
