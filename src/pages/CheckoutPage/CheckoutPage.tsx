@@ -8,11 +8,25 @@ import { StoreContext } from "../../context/StoreContext";
 import Shipping from "../../components/CheckoutShipping/Shipping";
 import Payment from "../../components/CheckoutPayment/Payment";
 import { Link } from "react-router-dom";
+import Submit from "../../components/Submit/Submit";
 
 const CheckoutPage: React.FC = () => {
   const items = useContext(StoreContext);
   const [progress, setProgress] = useState("contacts");
   const [buttonProgress, setButtonProgress] = useState("Shipping");
+
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [gender, setGender] = useState("Male");
+
+  const contacts = {
+    fullName,
+    setFullName,
+    phoneNumber,
+    setPhoneNumber,
+    gender,
+    setGender,
+  };
 
   const total = items?.cartItems?.reduce((prev, cur) => {
     if (cur.discount) return prev + cur.amount! * cur.price! - cur?.discount!;
@@ -60,9 +74,10 @@ const CheckoutPage: React.FC = () => {
           <Title>Checkout</Title>
         </div>
         <Progress />
-        {progress === "contacts" && <Contact />}
+        {progress === "contacts" && <Contact contacts={contacts} />}
         {progress === "shipping" && <Shipping />}
         {progress === "payment" && <Payment />}
+        {progress === "submit" && <Submit contacts={contacts} />}
         <ButtonWrapper>
           <div>
             {buttonProgress !== "" && (
@@ -80,7 +95,9 @@ const CheckoutPage: React.FC = () => {
             )}
             {buttonProgress === "" && (
               <PrevButton>
-                <Link to={"/"}>Come back homepage</Link>
+                <Link to={"/"} style={{ color: "#000" }}>
+                  Come back homepage
+                </Link>
                 <img
                   src={
                     "https://cassiopeia.store/svgs/line-right-arrow-black.svg"
@@ -123,6 +140,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 435px;
+  font-size: 16px;
 
   & button img {
     margin: 0 10px;

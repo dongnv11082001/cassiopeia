@@ -1,44 +1,46 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {StoreContext} from "../../../context/StoreContext";
+import { StoreContext } from "../../../context/StoreContext";
 
 type Props = {
-    endpoint: string;
+  endpoint: string;
 };
 
-const ProductList: React.FC<Props> = ({endpoint}) => {
-    const [data, setData] = useState<IProduct[]>();
-    const store = useContext(StoreContext);
-    const handleAdd = store?.handleAddToCart!;
+const ProductList: React.FC<Props> = ({ endpoint }) => {
+  const [data, setData] = useState<IProduct[]>();
+  const store = useContext(StoreContext);
+  const handleAdd = store?.handleAddToCart!;
 
-    const url: string = "https://620c70a3b5736325938e3172.mockapi.io";
-    useEffect(() => {
-        const getItems = async () => {
-            const response = await fetch(`${url}/${endpoint}`);
-            const items = await response.json();
-            setData(items);
-        };
-        getItems();
+  const url: string = "https://620c70a3b5736325938e3172.mockapi.io";
+  useEffect(() => {
+    const getItems = async () => {
+      const response = await fetch(`${url}/${endpoint}`);
+      const items = await response.json();
+      setData(items);
+    };
+    getItems();
+  }, []);
 
-    }, []);
-
-    return (
-        <ItemsWrapper>
-            {data?.map((item) => (
-                <Item key={item.id}>
-                    <ImageWrapper>
-                        <img src={item.image} className="img"/>
-                        <IconWrapper>
-                            <img src="/img/cart.svg" onClick={() => handleAdd(item)}/>
-                            <img src="/img/search.svg"/>
-                        </IconWrapper>
-                    </ImageWrapper>
-                    <p className="name">{item.name}</p>
-                    <p className="price">${item.price}</p>
-                </Item>
-            ))}
-        </ItemsWrapper>
-    );
+  return (
+    <ItemsWrapper>
+      {data?.map((item) => (
+        <Item key={item.id}>
+          <ImageWrapper>
+            <img src={item.image} className="img" />
+            <IconWrapper>
+              <img src="/img/cart.svg" onClick={() => handleAdd(item)} />
+              <Link to={"/flowers/" + item.id}>
+                <img src="/img/search.svg" />
+              </Link>
+            </IconWrapper>
+          </ImageWrapper>
+          <p className="name">{item.name}</p>
+          <p className="price">${item.price}</p>
+        </Item>
+      ))}
+    </ItemsWrapper>
+  );
 };
 
 const ItemsWrapper = styled.div`

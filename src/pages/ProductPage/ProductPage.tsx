@@ -1,136 +1,131 @@
-import {Breadcrumb} from "antd";
-import {useContext, useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
-import {StoreContext} from "../../context/StoreContext";
+import { Breadcrumb } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
 import styled from "styled-components";
-import {ShoppingCartOutlined} from "@ant-design/icons";
-import {CounterContainer} from "../../components/Cart/Counter";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { CounterContainer } from "../../components/Cart/Counter";
 import ProductList from "../../components/Content/ProductList/ProductList";
 
 const descriptions = [
-    {title: "Bouquet contents", content: "No content yet"},
-    {title: "Includes", content: "No content yet"},
-    {
-        title: "Delivery & Pay policy",
-        content:
-            "Each bouquet is unique and is prepared by an expert florist and our customer service team is at your service to ensure the best experience possible.",
-    },
+  { title: "Bouquet contents", content: "No content yet" },
+  { title: "Includes", content: "No content yet" },
+  {
+    title: "Delivery & Pay policy",
+    content:
+      "Each bouquet is unique and is prepared by an expert florist and our customer service team is at your service to ensure the best experience possible.",
+  },
 ];
 const tags = [
-    {
-        icon: "https://cassiopeia.store/svgs/free-i.svg",
-        content: "Benefits description",
-    },
-    {
-        icon: "https://cassiopeia.store/svgs/star-i.svg",
-        content: "Always fresh flowers",
-    },
-    {
-        icon: "https://cassiopeia.store/svgs/camera-i.svg",
-        content: "Take photo of bouquet",
-    },
+  {
+    icon: "https://cassiopeia.store/svgs/free-i.svg",
+    content: "Benefits description",
+  },
+  {
+    icon: "https://cassiopeia.store/svgs/star-i.svg",
+    content: "Always fresh flowers",
+  },
+  {
+    icon: "https://cassiopeia.store/svgs/camera-i.svg",
+    content: "Take photo of bouquet",
+  },
 ];
 
 const ProductPage = () => {
-    const [item, setItem] = useState<IProduct>()
-    const productContext = useContext(StoreContext)
-    const [quantity, setQuantity] = useState(1)
+  const [item, setItem] = useState<IProduct>();
+  const productContext = useContext(StoreContext);
+  const [quantity, setQuantity] = useState(1);
 
-    const {id} = useParams()
+  const { id } = useParams();
 
-    const products = productContext?.cartItems
+  const products = productContext?.cartItems;
 
-    useEffect(() => {
-        setItem(products?.find(product => product.id === id))
-    }, [])
+  useEffect(() => {
+    setItem(products?.find((product) => product.id === id));
+  }, [item]);
 
-    const handleIncrease = () => {
-
-    }
-
-
-    return (
-        <Wrapper>
-            <Breadcrumb>
-                <Breadcrumb.Item>
-                    <Link to={'/'}>
-                        Home
-                    </Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <Link to={`/${item?.category}`}>
-                        {item?.category}
-                    </Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    {item?.name}
-                </Breadcrumb.Item>
-            </Breadcrumb>
-            <div className="product-view">
-                <div className="image-viewer">
-                    <div className="image-wrapper">
-                        <img src={item?.image}/>
-                    </div>
-                    <div className="tags">
-                        {tags.map((tag, i) => (
-                            <span className="tag" key={i}>
-                <img src={tag.icon} alt="tag"/>
+  return (
+    <Wrapper>
+      <Breadcrumb>
+        <Breadcrumb.Item>
+          <Link to={"/"}>Home</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to={`/${item?.category}`}>{item?.category}</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>{item?.name}</Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="product-view">
+        <div className="image-viewer">
+          <div className="image-wrapper">
+            <img src={item?.image} />
+          </div>
+          <div className="tags">
+            {tags.map((tag) => (
+              <span className="tag" key={tag.content}>
+                <img src={tag.icon} alt="tag" />
                 <span>{tag.content}</span>
               </span>
-                        ))}
-                    </div>
-                </div>
-                <div className="product-detail">
-                    <header>
-                        <div className="title">{item?.name}</div>
-                        <div className="price">${item?.price}</div>
-                        <div className="counter-title">Count:</div>
-                        <CounterContainer>
-                            <div
-                                className="btn"
-                                onClick={() => {
-                                    setQuantity(prev => prev - 1)
-                                    if (quantity <= 1) return;
-                                }}
-                            >
-                                -
-                            </div>
-                            <div className="amount">{quantity}</div>
-                            <div className="btn" onClick={() => setQuantity(prev => prev + 1)}>
-                                +
-                            </div>
-                        </CounterContainer>
-                        <div className="descriptions">
-                            <div className='des'>Type: {item?.category}</div>
-                            {item?.occasion && (
-                                <div className="des">Occasion: {item.occasion}</div>
-                            )}
-                        </div>
-                    </header>
-                    <div className="buttons">
-                        <Link to="/checkout">
-                            <div className="order-btn">Order Now</div>
-                        </Link>
-                        <div className="save-btn" onClick={() => productContext?.handleAddToCart}>
-                            <ShoppingCartOutlined/>
-                        </div>
-                    </div>
-                </div>
+            ))}
+          </div>
+        </div>
+        <div className="product-detail">
+          <header>
+            <div className="title">{item?.name}</div>
+            <div className="price">${item?.price}</div>
+            <div className="counter-title">Count:</div>
+            <CounterContainer>
+              <div
+                className="btn"
+                onClick={() => {
+                  setQuantity((prev) => prev - 1);
+                  if (quantity <= 1) return;
+                }}
+              >
+                -
+              </div>
+              <div className="amount">{quantity}</div>
+              <div
+                className="btn"
+                onClick={() => setQuantity((prev) => prev + 1)}
+              >
+                +
+              </div>
+            </CounterContainer>
+            <div className="descriptions">
+              <div className="des">Type: {item?.category}</div>
+              {item?.occasion && (
+                <div className="des">Occasion: {item.occasion}</div>
+              )}
             </div>
-            <Suggestion>
-                <h1>You may like</h1>
-                <ProductList endpoint={'/flowers'}/>
-            </Suggestion>
-        </Wrapper>
-    )
-}
+          </header>
+          <div className="buttons">
+            <Link to="/checkout">
+              <div className="order-btn">Order Now</div>
+            </Link>
+            <div
+              className="save-btn"
+              onClick={() => productContext?.handleAddToCart}
+            >
+              <ShoppingCartOutlined />
+            </div>
+          </div>
+        </div>
+      </div>
+      <Suggestion>
+        <h1>You may like</h1>
+        <ProductList endpoint={"/flowers"} />
+      </Suggestion>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
-    max-width: 1160px;
-    margin-top: 30px;
-    margin-bottom: 100px;
-    
-.product-link-bar {
+  max-width: 1160px;
+  margin-top: 30px;
+  margin-bottom: 100px;
+
+  .product-link-bar {
     margin: 3rem 0;
   }
   .product-view {
@@ -140,9 +135,6 @@ const Wrapper = styled.div`
     margin-top: 20px;
     .image-viewer {
       flex: 1 1 15rem;
-      .image-wrapper {
-      border: 0.5px solid #000;
-      }
       .tags {
         margin-top: 20px;
         display: flex;
@@ -226,10 +218,10 @@ const Wrapper = styled.div`
       }
     }
   }
-`
+`;
 const Suggestion = styled.div`
-    margin-top: 100px;
-    margin-bottom: 30px;
-`
+  margin-top: 100px;
+  margin-bottom: 30px;
+`;
 
-export default ProductPage
+export default ProductPage;
