@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { CounterContainer } from "../../components/Cart/Counter";
 import ProductList from "../../components/Content/ProductList/ProductList";
+import { getProduct } from "../../api/fetchApi";
 
 const descriptions = [
   { title: "Bouquet contents", content: "No content yet" },
@@ -35,14 +36,20 @@ const ProductPage = () => {
   const [item, setItem] = useState<IProduct>();
   const productContext = useContext(StoreContext);
   const [quantity, setQuantity] = useState(1);
+  const addToCart = productContext?.handleAddToCart!;
 
-  const { id } = useParams();
-
-  const products = productContext?.cartItems;
+  const { id } = useParams<string>();
 
   useEffect(() => {
-    setItem(products?.find((product) => product.id === id));
-  }, [item]);
+    const getProductDetails = async () => {
+      const { data } = await getProduct("/flowers/", id as string);
+      setItem(data);
+    };
+
+    getProductDetails();
+
+    return () => setItem(undefined);
+  }, []);
 
   return (
     <Wrapper>
@@ -101,7 +108,9 @@ const ProductPage = () => {
           </header>
           <div className="buttons">
             <Link to="/checkout">
-              <div className="order-btn">Order Now</div>
+              <div className="order-btn" onClick={() => addToCart(item!)}>
+                Order Now
+              </div>
             </Link>
             <div
               className="save-btn"

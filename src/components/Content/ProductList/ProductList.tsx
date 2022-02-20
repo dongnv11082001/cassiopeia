@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { getProducts } from "../../../api/fetchApi";
 import { StoreContext } from "../../../context/StoreContext";
 
 type Props = {
@@ -12,14 +13,13 @@ const ProductList: React.FC<Props> = ({ endpoint }) => {
   const store = useContext(StoreContext);
   const handleAdd = store?.handleAddToCart!;
 
-  const url: string = "https://620c70a3b5736325938e3172.mockapi.io";
+  const getAllProducts = async () => {
+    const { data } = await getProducts(endpoint);
+    setData(data);
+  };
+
   useEffect(() => {
-    const getItems = async () => {
-      const response = await fetch(`${url}/${endpoint}`);
-      const items = await response.json();
-      setData(items);
-    };
-    getItems();
+    getAllProducts();
   }, []);
 
   return (
@@ -30,7 +30,7 @@ const ProductList: React.FC<Props> = ({ endpoint }) => {
             <img src={item.image} className="img" />
             <IconWrapper>
               <img src="/img/cart.svg" onClick={() => handleAdd(item)} />
-              <Link to={"/flowers/" + item.id}>
+              <Link to={`/flowers/${item.id}`}>
                 <img src="/img/search.svg" />
               </Link>
             </IconWrapper>
