@@ -6,17 +6,16 @@ import "antd/dist/antd.css";
 
 // components
 import Search from "../Search/Search";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../../context/StoreContext";
 import { CartModal } from "../Cart/CartModal";
 
-type Props = {
-};
+type Props = {};
 
 const Header: React.FC<Props> = () => {
   const [showSearch, setShow] = useState(false);
   const [showCart, setShowCart] = useState(false);
 
-  const store = useContext(StoreContext)
+  const store = useContext(StoreContext);
 
   const handleShowSearch = () => {
     setShow(!showSearch);

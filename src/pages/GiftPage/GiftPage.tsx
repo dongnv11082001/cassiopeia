@@ -1,12 +1,12 @@
 import React from "react";
-import ProductList from "../../components/Content/ProductList/ProductList";
+import ProductList from "../../components/common/Content/ProductList/ProductList";
 
 const GiftPage: React.FC = () => {
-    return (
-        <div>
-            <ProductList endpoint={'/flowers'}/>
-        </div>
-    )
-}
+  return (
+    <div>
+      <ProductList endpoint={"/flowers"} />
+    </div>
+  );
+};
 
-export default GiftPage
+export default GiftPage;

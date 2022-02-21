@@ -50,7 +50,9 @@ function Footer() {
             <p>{footerSocialLinks.title}</p>
             <p>{footerSocialLinks.phoneNumber}</p>
             {footerSocialLinks.socialNetworks.map((item, i) => (
-              <a key={i} href={item.path}>{item.icon}</a>
+              <a key={i} href={item.path}>
+                {item.icon}
+              </a>
             ))}
           </div>
           {footerData.map((data) => (

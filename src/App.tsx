@@ -3,11 +3,11 @@ import styled from "styled-components";
 import "./App.css";
 
 // pages & components
-import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar";
+import Header from "./components/common/Header/Header";
+import Navbar from "./components/common/Navbar/Navbar";
 import Home from "./pages/Homepage/Home";
 import FlowerPage from "./pages/FlowerPage/FlowerPage";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/common/Footer/Footer";
 import PlantPage from "./pages/PlantPage/PlantPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import GiftPage from "./pages/GiftPage/GiftPage";

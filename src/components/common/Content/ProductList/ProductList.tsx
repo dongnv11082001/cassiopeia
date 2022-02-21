@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getProducts } from "../../../api/fetchApi";
-import { StoreContext } from "../../../context/StoreContext";
+import { getProducts } from "../../../../api/fetchApi";
+import { StoreContext } from "../../../../context/StoreContext";
 
 type Props = {
   endpoint: string;

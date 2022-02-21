@@ -1,13 +1,13 @@
 import "antd/lib/modal/style/css";
 import { useContext } from "react";
 import styled from "styled-components";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../../context/StoreContext";
 import AddedItem from "./AddedItem";
 import { CartItem } from "./CartItem";
 
 const Cart: React.FC = () => {
   const CartContext = useContext(StoreContext);
-  const cartItems = CartContext?.cartItems
+  const cartItems = CartContext?.cartItems;
 
   return (
     <>

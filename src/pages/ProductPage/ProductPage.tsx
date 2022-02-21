@@ -4,8 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import styled from "styled-components";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { CounterContainer } from "../../components/Cart/Counter";
-import ProductList from "../../components/Content/ProductList/ProductList";
+import { CounterContainer } from "../../components/common/Cart/Counter";
+import ProductList from "../../components/common/Content/ProductList/ProductList";
 import { getProduct } from "../../api/fetchApi";
 
 const descriptions = [

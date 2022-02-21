@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import Banner from "../Banner/Banner";
-import SubBanner from "../Banner/SubBanner";
+import Banner from "../../Banner/Banner";
+import SubBanner from "../../Banner/SubBanner";
 import ProductList from "./ProductList/ProductList";
 import Title from "./Title/Title";
 
-type Props = {
-}
+type Props = {};
 
 const Content: React.FC<Props> = () => {
   return (
@@ -38,7 +37,7 @@ const Content: React.FC<Props> = () => {
             rightArrow="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
           />
         </ContentTitle>
-        <ProductList endpoint={'/flowers'} />
+        <ProductList endpoint={"/flowers"} />
         <ContentTitle className="content__title">
           <Title
             text="Revelant"
