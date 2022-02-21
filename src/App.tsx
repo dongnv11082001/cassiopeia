@@ -44,7 +44,7 @@ export default App;
 const AppContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-item: center;
+  align-items: center;
 
   & .content {
     max-width: 1160px;
