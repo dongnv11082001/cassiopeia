@@ -1,5 +1,5 @@
 import { Breadcrumb } from "antd";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import styled from "styled-components";
@@ -17,6 +17,7 @@ const descriptions = [
       "Each bouquet is unique and is prepared by an expert florist and our customer service team is at your service to ensure the best experience possible.",
   },
 ];
+
 const tags = [
   {
     icon: "https://cassiopeia.store/svgs/free-i.svg",
@@ -32,10 +33,11 @@ const tags = [
   },
 ];
 
-const ProductPage = () => {
+const ProductPage: React.FC = () => {
   const [item, setItem] = useState<IProduct>();
   const productContext = useContext(StoreContext);
   const [quantity, setQuantity] = useState(1);
+  const [show, setShow] = useState(false);
   const addToCart = productContext?.handleAddToCart!;
 
   const { id } = useParams<string>();
@@ -49,7 +51,7 @@ const ProductPage = () => {
     getProductDetails();
 
     return () => setItem(undefined);
-  }, []);
+  }, [id]);
 
   return (
     <Wrapper>
@@ -65,7 +67,7 @@ const ProductPage = () => {
       <div className="product-view">
         <div className="image-viewer">
           <div className="image-wrapper">
-            <img src={item?.image} />
+            <img src={item?.image} alt="" />
           </div>
           <div className="tags">
             {tags.map((tag) => (
@@ -112,12 +114,32 @@ const ProductPage = () => {
                 Order Now
               </div>
             </Link>
-            <div
-              className="save-btn"
-              onClick={() => productContext?.handleAddToCart}
-            >
+            <div className="save-btn" onClick={() => addToCart(item!)}>
               <ShoppingCartOutlined />
             </div>
+          </div>
+          <div>
+            {descriptions.map((des, index) => {
+              return (
+                <Description key={index} onClick={() => setShow(!show)}>
+                  <span>{des.title}</span>
+                  {!show && (
+                    <img
+                      src="https://cassiopeia.store/svgs/plus-dropdown.svg"
+                      alt=""
+                    />
+                  )}
+                  {show && (
+                    <>
+                      <img
+                        src="https://cassiopeia.store/svgs/minus-dropdown.svg"
+                        alt=""
+                      />
+                    </>
+                  )}
+                </Description>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -231,6 +253,19 @@ const Wrapper = styled.div`
 const Suggestion = styled.div`
   margin-top: 100px;
   margin-bottom: 30px;
+`;
+
+const Description = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  border-bottom: 1px solid #f0f0f9;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export default ProductPage;
