@@ -181,4 +181,4 @@ const Text = styled.div`
   font-size: 16px;
 `;
 
-export default Shipping;
+export default React.memo(Shipping);

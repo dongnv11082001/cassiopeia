@@ -13,25 +13,24 @@ const ProductList: React.FC<Props> = ({ endpoint }) => {
   const store = useContext(StoreContext);
   const handleAdd = store?.handleAddToCart!;
 
-  const getAllProducts = async () => {
-    const { data } = await getProducts(endpoint);
-    setData(data);
-  };
-
   useEffect(() => {
+    const getAllProducts = async () => {
+      const { data } = await getProducts(endpoint);
+      setData(data);
+    };
     getAllProducts();
-  }, []);
+  }, [endpoint]);
 
   return (
     <ItemsWrapper>
       {data?.map((item) => (
         <Item key={item.id}>
           <ImageWrapper>
-            <img src={item.image} className="img" />
+            <img src={item.image} className="img" alt="" />
             <IconWrapper>
-              <img src="/img/cart.svg" onClick={() => handleAdd(item)} />
+              <img src="/img/cart.svg" onClick={() => handleAdd(item)} alt="" />
               <Link to={`/flowers/${item.id}`}>
-                <img src="/img/search.svg" />
+                <img src="/img/search.svg" alt="" />
               </Link>
             </IconWrapper>
           </ImageWrapper>

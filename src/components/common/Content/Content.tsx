@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Banner from "../../Banner/Banner";
 import SubBanner from "../../Banner/SubBanner";

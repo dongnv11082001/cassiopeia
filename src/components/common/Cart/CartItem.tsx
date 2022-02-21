@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
-import { Link, useParams } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import { Counter } from "./Counter";
 import { StoreContext } from "../../../context/StoreContext";
 
@@ -10,15 +10,9 @@ type Props = {
 };
 
 export const CartItem: React.FC<Props> = ({ item }) => {
-  const [quantity, setQuantity] = useState(1);
   const CartModalContext = useContext(StoreContext);
   const handleRemove = CartModalContext?.handleRemoveFromCart!;
   const handleIncrease = CartModalContext?.handleAddToCart!;
-
-  const cartItems = CartModalContext?.cartItems!;
-  const order = cartItems.map((item) => {
-    return { ...item, amount: quantity };
-  });
 
   const handleDecrease = (clickedItem: IProduct) => {
     CartModalContext?.setCartItems!((prev) => {

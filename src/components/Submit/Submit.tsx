@@ -58,4 +58,4 @@ const CompleteStatusWrapper = styled.div`
   }
 `;
 
-export default Submit;
+export default React.memo(Submit);

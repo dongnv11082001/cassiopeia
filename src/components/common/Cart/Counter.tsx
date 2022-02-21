@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 type Props = {
-  item: IProduct
+  item: IProduct;
   handleIncrease: (item: IProduct) => void;
   handleDecrease: (item: IProduct) => void;
 };
@@ -23,7 +23,9 @@ export const Counter: React.FC<Props> = ({
       <div className="btn" onClick={() => handleIncrease(item)}>
         +
       </div>
-      {item.amount > 1 && <StyledPrice>${item.amount * item.price}</StyledPrice>}
+      {item.amount > 1 && (
+        <StyledPrice>${item.amount * item.price}</StyledPrice>
+      )}
     </CounterContainer>
   );
 };

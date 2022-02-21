@@ -1,14 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
-interface IUser {
-  id: string;
-  name: string;
-  phoneNumber: string;
-  address: string;
-  gender: string;
-  orders: IOrder[];
-}
 
 type Props = {
   contacts: any;
@@ -37,6 +28,7 @@ const Contact: React.FC<Props> = ({ contacts }) => {
           <input
             type={"radio"}
             name={"gender"}
+            defaultChecked={true}
             value={contacts.gender}
             onChange={(e) => contacts.setGender(e.target.value)}
           />
@@ -80,4 +72,4 @@ const ContactGender = styled.div`
   }
 `;
 
-export default Contact;
+export default React.memo(Contact);

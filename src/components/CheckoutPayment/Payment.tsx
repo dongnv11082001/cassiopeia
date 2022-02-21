@@ -157,4 +157,4 @@ const Container = styled.div`
   }
 `;
 
-export default Payment;
+export default React.memo(Payment);

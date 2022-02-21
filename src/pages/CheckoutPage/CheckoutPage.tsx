@@ -9,15 +9,47 @@ import Shipping from "../../components/CheckoutShipping/Shipping";
 import Payment from "../../components/CheckoutPayment/Payment";
 import { Link } from "react-router-dom";
 import Submit from "../../components/Submit/Submit";
+import { useCheckoutPage } from "../../hooks/useCheckoutPage";
 
 const CheckoutPage: React.FC = () => {
-  const items = useContext(StoreContext);
-  const [progress, setProgress] = useState("contacts");
-  const [buttonProgress, setButtonProgress] = useState("Shipping");
-
+  const orders = useContext(StoreContext);
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("Male");
+  const [step, setStep] = useState(0);
+  const [progress, setProgress] = useState("");
+
+  const [buttonProgress, setButtonProgress] = useState("");
+
+  // if (step === 0) {
+  //   setButtonProgress("Shipping");
+  //   setProgress("contact");
+  // }
+
+  // if (step === 1) {
+  //   setButtonProgress("Payment");
+  //   setProgress("shipping");
+  // }
+
+  // if (step === 2) {
+  //   setButtonProgress("Submit");
+  //   setProgress("payment");
+  // }
+
+  // if (step === 3) {
+  //   setButtonProgress("");
+  //   setProgress("submit");
+  // }
+
+  const handlePrevClick = () => {
+    setStep(step - 1);
+  };
+
+  const handleNextClick = () => {
+    setStep(step + 1);
+    // setButtonProgress("Shipping");
+    // setProgress("contact");
+  };
 
   const contacts = {
     fullName,
@@ -28,40 +60,10 @@ const CheckoutPage: React.FC = () => {
     setGender,
   };
 
-  const total = items?.cartItems?.reduce((prev, cur) => {
+  const total = orders?.cartItems?.reduce((prev, cur) => {
     if (cur.discount) return prev + cur.amount! * cur.price! - cur?.discount!;
     return prev + cur.amount! * cur.price!;
   }, 0);
-
-  const handlePrevClick = () => {
-    if (progress === "shipping") {
-      setProgress("contacts");
-      setButtonProgress("Shipping");
-    }
-    if (progress === "payment") {
-      setProgress("shipping");
-      setButtonProgress("Payment");
-    }
-    if (progress === "submit") {
-      setProgress("payment");
-      setButtonProgress("Submit");
-    }
-  };
-
-  const handleNextClick = () => {
-    if (progress === "contacts") {
-      setProgress("shipping");
-      setButtonProgress("Payment");
-    }
-    if (progress === "shipping") {
-      setProgress("payment");
-      setButtonProgress("Submit");
-    }
-    if (progress === "payment") {
-      setProgress("submit");
-      setButtonProgress("");
-    }
-  };
 
   return (
     <Wrapper>
@@ -80,7 +82,7 @@ const CheckoutPage: React.FC = () => {
         {progress === "submit" && <Submit contacts={contacts} />}
         <ButtonWrapper>
           <div>
-            {buttonProgress !== "" && (
+            {buttonProgress && (
               <PrevButton
                 onClick={handlePrevClick}
                 disabled={progress === "contacts"}
@@ -89,11 +91,12 @@ const CheckoutPage: React.FC = () => {
                   src={
                     "https://cassiopeia.store/svgs/line-left-arrow-black.svg"
                   }
+                  alt=""
                 />
                 Back step
               </PrevButton>
             )}
-            {buttonProgress === "" && (
+            {!buttonProgress && (
               <PrevButton>
                 <Link to={"/"} style={{ color: "#000" }}>
                   Come back homepage
@@ -102,16 +105,18 @@ const CheckoutPage: React.FC = () => {
                   src={
                     "https://cassiopeia.store/svgs/line-right-arrow-black.svg"
                   }
+                  alt=""
                 />
               </PrevButton>
             )}
           </div>
           <div>
-            {buttonProgress !== "" && (
+            {buttonProgress && (
               <NextButton onClick={handleNextClick}>
                 <span>{buttonProgress}</span>
                 <img
                   src={"https://cassiopeia.store/svgs/line-right-arrow.svg"}
+                  alt=""
                 />
               </NextButton>
             )}
@@ -119,7 +124,7 @@ const CheckoutPage: React.FC = () => {
           </div>
         </ButtonWrapper>
       </div>
-      <Order items={items?.cartItems!} total={total!} />
+      <Order items={orders?.cartItems} total={total} />
     </Wrapper>
   );
 };
