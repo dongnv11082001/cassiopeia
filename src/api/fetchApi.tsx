@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const url: string = "https://620c70a3b5736325938e3172.mockapi.io";
+const url: string = "https://dh-cassiopeia-default-rtdb.asia-southeast1.firebasedatabase.app/flowers.json";
 
-export const getProducts = (endpoint: string) => {
-  return axios.get(url + endpoint);
+export const getProducts = () => {
+  return axios.get(url);
 };
 
-export const getProduct = (endpoint: string, id: string) => {
-  return axios.get(url + endpoint + id);
+export const getProduct = () => {
+  return axios.get(url);
 };

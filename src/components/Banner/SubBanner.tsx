@@ -2,24 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-type SubBannerProps = {
-  title: string;
-  text: string;
-  imgSrc: string;
-};
-
-function SubBanner({ title, text, imgSrc }: SubBannerProps) {
+function SubBanner({ title, btnTitle, background, description }: BannersProps) {
   return (
     <SubBannerWrapper className="banner">
       <div className="banner__background">
-        <img src={imgSrc} alt={imgSrc} />
+        <img src={background} alt={background} />
       </div>
       <SubBannerDescription>
         <div className="title">{title}</div>
-        <p className="text">{text}</p>
+        <p className="text">{description}</p>
         <Link to={"/flower"}>
           <div className="banner__button">
-            <span>View now</span>
+            <span>{btnTitle}</span>
             <img
               src="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
               alt=""

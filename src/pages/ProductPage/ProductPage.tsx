@@ -40,19 +40,6 @@ const ProductPage: React.FC = () => {
   const [show, setShow] = useState(false);
   const addToCart = productContext?.handleAddToCart!;
 
-  const { id } = useParams<string>();
-
-  useEffect(() => {
-    const getProductDetails = async () => {
-      const { data } = await getProduct("/flowers/", id as string);
-      setItem(data);
-    };
-
-    getProductDetails();
-
-    return () => setItem(undefined);
-  }, [id]);
-
   return (
     <Wrapper>
       <Breadcrumb>
@@ -145,7 +132,7 @@ const ProductPage: React.FC = () => {
       </div>
       <Suggestion>
         <h1>You may like</h1>
-        <ProductList endpoint={"/flowers"} />
+        <ProductList />
       </Suggestion>
     </Wrapper>
   );

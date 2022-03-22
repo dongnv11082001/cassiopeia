@@ -4,7 +4,7 @@ import ProductList from "../../components/common/Content/ProductList/ProductList
 const FlowerPage: React.FC = () => {
   return (
     <div>
-      <ProductList endpoint={"/flowers"} />
+      <ProductList />
     </div>
   );
 };

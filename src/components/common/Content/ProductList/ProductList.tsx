@@ -5,21 +5,21 @@ import { getProducts } from "../../../../api/fetchApi";
 import { StoreContext } from "../../../../context/StoreContext";
 
 type Props = {
-  endpoint: string;
+    
 };
 
-const ProductList: React.FC<Props> = ({ endpoint }) => {
+const ProductList: React.FC<Props> = () => {
   const [data, setData] = useState<IProduct[]>();
   const store = useContext(StoreContext);
   const handleAdd = store?.handleAddToCart!;
 
   useEffect(() => {
     const getAllProducts = async () => {
-      const { data } = await getProducts(endpoint);
-      setData(data);
+      const { data } = await getProducts();
+      setData(data.slice(0, 4));
     };
     getAllProducts();
-  }, [endpoint]);
+  }, []);
 
   return (
     <ItemsWrapper>
