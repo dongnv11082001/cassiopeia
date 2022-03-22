@@ -1,12 +1,12 @@
 // components
-import Content from '../../components/Content/Content'
+import Content from "../../components/common/Content/Content";
 
 function Home() {
   return (
     <div>
-        <Content />
+      <Content />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
