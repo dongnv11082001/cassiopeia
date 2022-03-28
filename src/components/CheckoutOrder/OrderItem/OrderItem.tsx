@@ -9,7 +9,7 @@ const OrderItem: React.FC<Props> = ({ item }) => {
   return (
     <CartItemContainer>
       <div className="image-wrapper">
-        <img src={item.image} alt="avatar" style={{ width: "100px" }} />
+        <img src={item.thumbnail} alt="avatar" style={{ width: "100px" }} />
       </div>{" "}
       <div className="control-center">
         <div className="top-center">

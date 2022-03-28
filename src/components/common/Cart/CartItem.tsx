@@ -32,7 +32,7 @@ export const CartItem: React.FC<Props> = ({ item }) => {
   return (
     <CartItemContainer>
       <div className="image-wrapper">
-        <Img src={item.image} alt="avatar" />
+        <Img src={item.thumbnail} alt="avatar" />
         <div className="detail-btn-wrapper">
           <Link to={"/flowers/" + item.id}>
             <div className="detail-button">

@@ -35,9 +35,9 @@ const Shipping: React.FC = () => {
       <Delivery onClick={handlePickUpClick} checked={pickUpClick}>
         <div>
           {pickUpClick ? (
-            <img src={"https://cassiopeia.store/svgs/radio-checked.svg"} />
+            <img src={"https://cassiopeia.store/svgs/radio-checked.svg"}  alt='' />
           ) : (
-            <img src={"https://cassiopeia.store/svgs/radio-unchecked.svg"} />
+            <img src={"https://cassiopeia.store/svgs/radio-unchecked.svg"} alt=''  />
           )}
         </div>
         <div className="text">
@@ -48,9 +48,9 @@ const Shipping: React.FC = () => {
       <Delivery onClick={handleCourierClick} checked={courierClick}>
         <div>
           {courierClick ? (
-            <img src={"https://cassiopeia.store/svgs/radio-checked.svg"} />
+            <img src={"https://cassiopeia.store/svgs/radio-checked.svg"} alt=''  />
           ) : (
-            <img src={"https://cassiopeia.store/svgs/radio-unchecked.svg"} />
+            <img src={"https://cassiopeia.store/svgs/radio-unchecked.svg"} alt=''  />
           )}
         </div>
         <div className="text">

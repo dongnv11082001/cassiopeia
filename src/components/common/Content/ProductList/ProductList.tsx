@@ -1,46 +1,38 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { getProducts } from "../../../../api/fetchApi";
-import { StoreContext } from "../../../../context/StoreContext";
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { StoreContext } from '../../../../context/StoreContext'
+import { useFetch } from '../../../../hooks/useFetch'
 
-type Props = {
-    
-};
+type Props = {}
 
 const ProductList: React.FC<Props> = () => {
-  const [data, setData] = useState<IProduct[]>();
-  const store = useContext(StoreContext);
-  const handleAdd = store?.handleAddToCart!;
-
-  useEffect(() => {
-    const getAllProducts = async () => {
-      const { data } = await getProducts();
-      setData(data.slice(0, 4));
-    };
-    getAllProducts();
-  }, []);
+  const store = useContext(StoreContext)
+  const handleAdd = store?.handleAddToCart!
+  const { data: flowers }: { data: IProduct[] } = useFetch(
+    'https://dh-cassiopeia-default-rtdb.asia-southeast1.firebasedatabase.app/flowers.json'
+  )
 
   return (
     <ItemsWrapper>
-      {data?.map((item) => (
+      {flowers.slice(0, 4)?.map((item) => (
         <Item key={item.id}>
           <ImageWrapper>
-            <img src={item.image} className="img" alt="" />
+            <img src={item.thumbnail} className='img' alt='' />
             <IconWrapper>
-              <img src="/img/cart.svg" onClick={() => handleAdd(item)} alt="" />
+              <img src='/img/cart.svg' onClick={() => handleAdd(item)} alt='' />
               <Link to={`/flowers/${item.id}`}>
-                <img src="/img/search.svg" alt="" />
+                <img src='/img/search.svg' alt='' />
               </Link>
             </IconWrapper>
           </ImageWrapper>
-          <p className="name">{item.name}</p>
-          <p className="price">${item.price}</p>
+          <p className='name'>{item.name}</p>
+          <p className='price'>${item.price}</p>
         </Item>
       ))}
     </ItemsWrapper>
-  );
-};
+  )
+}
 
 const ItemsWrapper = styled.div`
   display: flex;
@@ -65,7 +57,7 @@ const ItemsWrapper = styled.div`
   & .name {
     font-size: 20px;
   }
-`;
+`
 
 const ImageWrapper = styled.div`
   display: flex;
@@ -75,9 +67,9 @@ const ImageWrapper = styled.div`
   padding: 15px;
   position: relative;
   border-radius: 2px;
-`;
+`
 
-const Item = styled.div``;
+const Item = styled.div``
 
 const IconWrapper = styled.div`
   position: absolute;
@@ -94,6 +86,6 @@ const IconWrapper = styled.div`
   & img:hover {
     opacity: 0.6;
   }
-`;
+`
 
-export default ProductList;
+export default ProductList

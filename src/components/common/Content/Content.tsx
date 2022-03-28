@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { useFetch } from '../../../hooks/useFetch'
 import Banner from '../../Banner/Banner'
 import SubBanner from '../../Banner/SubBanner'
 import ProductList from './ProductList/ProductList'
 import Title from './Title/Title'
 
 const Content: React.FC = () => {
-  const [banners, setBanners] = useState<BannersProps[]>([])
-
-  useEffect(() => {
-    const getStaticProps = async () => {
-      const response = await fetch(
-        'https://dh-cassiopeia-default-rtdb.asia-southeast1.firebasedatabase.app/banner.json'
-      )
-      const data: BannersProps[] = await response.json()
-      setBanners(data)
-    }
-    getStaticProps()
-  }, [])
+  const { data: banners }: { data: BannersProps[] } = useFetch(
+    'https://dh-cassiopeia-default-rtdb.asia-southeast1.firebasedatabase.app/banner.json'
+  )
 
   return (
     <ContentWrapper className='content'>

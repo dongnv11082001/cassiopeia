@@ -1,18 +1,20 @@
 interface IProduct {
-  discount?: number
-  id: string
-  price: number
-  name: string
-  image: string
-  amount: number
-  category: string
-  occasion: string
-  address: string
+    id: string
+    imageType: string
+    includes: string[]
+    name: string
+    occasion: string
+    oldPrice: number
+    price: number
+    thumbnail: string
+    type: string
+    amount: number
+    discount: number
 }
 
 interface IStore {
   cartItems?: IProduct[]
-  setCartItems?: React.Dispatch<React.SetStateAction<IFlower[]>>
+  setCartItems?: React.Dispatch<React.SetStateAction<IProduct[]>>
   handleAddToCart?: (item: IProduct) => void
   handleRemoveFromCart?: (id: string) => void
   handleDecrease?: (item: IProduct) => void

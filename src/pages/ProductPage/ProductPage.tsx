@@ -1,12 +1,11 @@
 import { Breadcrumb } from "antd";
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import styled from "styled-components";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { CounterContainer } from "../../components/common/Cart/Counter";
 import ProductList from "../../components/common/Content/ProductList/ProductList";
-import { getProduct } from "../../api/fetchApi";
 
 const descriptions = [
   { title: "Bouquet contents", content: "No content yet" },
@@ -47,14 +46,14 @@ const ProductPage: React.FC = () => {
           <Link to={"/"}>Home</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to={`/${item?.category}`}>{item?.category}</Link>
+          <Link to={`/${item?.type}`}>{item?.type}</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{item?.name}</Breadcrumb.Item>
       </Breadcrumb>
       <div className="product-view">
         <div className="image-viewer">
           <div className="image-wrapper">
-            <img src={item?.image} alt="" />
+            <img src={item?.thumbnail} alt="" />
           </div>
           <div className="tags">
             {tags.map((tag) => (
@@ -89,7 +88,7 @@ const ProductPage: React.FC = () => {
               </div>
             </CounterContainer>
             <div className="descriptions">
-              <div className="des">Type: {item?.category}</div>
+              <div className="des">Type: {item?.type}</div>
               {item?.occasion && (
                 <div className="des">Occasion: {item.occasion}</div>
               )}
