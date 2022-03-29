@@ -1,67 +1,53 @@
-import styled from "styled-components";
-import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import React, { useContext } from "react";
-import { Counter } from "./Counter";
-import { StoreContext } from "../../../context/StoreContext";
+import styled from 'styled-components'
+import { DeleteOutlined, SearchOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Counter } from './Counter'
+import { StoreContext } from '../../../context/StoreContext'
 
 type Props = {
-  item: IProduct;
-};
+  item: IProduct
+}
 
 export const CartItem: React.FC<Props> = ({ item }) => {
-  const CartModalContext = useContext(StoreContext);
-  const handleRemove = CartModalContext?.handleRemoveFromCart!;
-  const handleIncrease = CartModalContext?.handleAddToCart!;
-
-  const handleDecrease = (clickedItem: IProduct) => {
-    CartModalContext?.setCartItems!((prev) => {
-      const isItemInCart = prev?.find((item) => item.id === clickedItem.id);
-
-      if (isItemInCart) {
-        return prev.map((item) => {
-          return item.id === clickedItem.id
-            ? { ...item, amount: item.amount - 1 }
-            : item;
-        });
-      }
-      return [...prev, { ...clickedItem, amount: 1 }];
-    });
-  };
+  const CartModalContext = useContext(StoreContext)
+  const handleDelete = CartModalContext.handleDeleteFromCart
+  const handleIncrease = CartModalContext.handleAddToCart
+  const handleDecrease = CartModalContext.handleDecrease
 
   return (
     <CartItemContainer>
-      <div className="image-wrapper">
-        <Img src={item.thumbnail} alt="avatar" />
-        <div className="detail-btn-wrapper">
-          <Link to={"/flowers/" + item.id}>
-            <div className="detail-button">
+      <div className='image-wrapper'>
+        <Img src={item.thumbnail} alt='avatar' />
+        <div className='detail-btn-wrapper'>
+          <Link to={'/flowers/' + item.id}>
+            <div className='detail-button'>
               <SearchOutlined />
             </div>
           </Link>
         </div>
       </div>
-      <div className="control-center">
-        <div className="top-center">
-          <div className="product-name">{item.name}</div>
-          <div className="price">${item.price}</div>
+      <div className='control-center'>
+        <div className='top-center'>
+          <div className='product-name'>{item.name}</div>
+          <div className='price'>${item.price}</div>
         </div>
-        <div className="bottom-center">
-          <div className="left-bottom-center">
+        <div className='bottom-center'>
+          <div className='left-bottom-center'>
             <Counter
-              handleIncrease={handleIncrease}
-              handleDecrease={handleDecrease}
+              handleIncrease={() => handleIncrease(item)}
+              handleDecrease={() => handleDecrease(item)}
               item={item}
             />
           </div>
-          <div className="delete-btn" onClick={() => handleRemove(item.id)}>
+          <div className='delete-btn' onClick={() => handleDelete(item.id)}>
             {<DeleteOutlined />}
           </div>
         </div>
       </div>
     </CartItemContainer>
-  );
-};
+  )
+}
 
 export const CartItemContainer = styled.div`
   display: flex;
@@ -138,8 +124,8 @@ export const CartItemContainer = styled.div`
     width: 100%;
     justify-content: space-between;
   }
-`;
+`
 
 const Img = styled.img`
   width: 100px;
-`;
+`

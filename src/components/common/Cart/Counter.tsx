@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 type Props = {
-  item: IProduct;
-  handleIncrease: (item: IProduct) => void;
-  handleDecrease: (item: IProduct) => void;
-};
+  item: IProduct
+  handleIncrease: (item: IProduct) => void
+  handleDecrease: (item: IProduct) => void
+}
 
 export const Counter: React.FC<Props> = ({
   item,
@@ -14,21 +14,21 @@ export const Counter: React.FC<Props> = ({
 }) => {
   return (
     <CounterContainer>
-      <div className="btn" onClick={() => handleDecrease(item)}>
-        <button className="btn" disabled={item.amount > 0 && item.amount <= 1}>
+      <div className='btn' onClick={() => handleDecrease(item)}>
+        <button className='btn' disabled={item.amount > 0 && item.amount <= 1}>
           -
         </button>
       </div>
-      <div className="amount">{item.amount >= 1 && item.amount}</div>
-      <div className="btn" onClick={() => handleIncrease(item)}>
+      <div className='amount'>{item.amount >= 1 && item.amount}</div>
+      <div className='btn' onClick={() => handleIncrease(item)}>
         +
       </div>
       {item.amount > 1 && (
         <StyledPrice>${item.amount * item.price}</StyledPrice>
       )}
     </CounterContainer>
-  );
-};
+  )
+}
 export const CounterContainer = styled.div`
   display: flex;
   align-items: center;
@@ -48,11 +48,11 @@ export const CounterContainer = styled.div`
     outline: none;
     border: none;
   }
-`;
+`
 
 const StyledPrice = styled.p`
   color: red;
   text-align: center;
   padding: 0;
   margin: 0;
-`;
+`

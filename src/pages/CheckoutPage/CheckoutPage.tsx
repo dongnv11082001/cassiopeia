@@ -10,6 +10,11 @@ import Payment from '../../components/pages/checkout/CheckoutPayment/Payment'
 import { Link } from 'react-router-dom'
 import Submit from '../../components/Submit/Submit'
 import { useStages } from '../../hooks/useStages'
+import {
+  blackLeftArrow,
+  blackRightArrow,
+  whiteRightArrow,
+} from '../../constants/arrows'
 
 const CheckoutPage: React.FC = () => {
   const orders = useContext(StoreContext)
@@ -18,7 +23,7 @@ const CheckoutPage: React.FC = () => {
   const [gender, setGender] = useState('Male')
   const [step, setStep] = useState(0)
 
-  const {progress, buttonProgress} = useStages(step)
+  const { progress, buttonProgress } = useStages(step)
 
   const handlePrevClick = () => {
     setStep(step - 1)
@@ -38,8 +43,8 @@ const CheckoutPage: React.FC = () => {
   }
 
   const total = orders?.cartItems?.reduce((prev, cur) => {
-    if (cur.discount) return prev + cur.amount! * cur.price! - cur?.discount!
-    return prev + cur.amount! * cur.price!
+    if (cur.discount) return prev + cur.amount * cur.price - cur?.discount
+    return prev + cur.amount * cur.price
   }, 0)
 
   return (
@@ -64,12 +69,7 @@ const CheckoutPage: React.FC = () => {
                 onClick={handlePrevClick}
                 disabled={progress === 'contacts'}
               >
-                <img
-                  src={
-                    'https://cassiopeia.store/svgs/line-left-arrow-black.svg'
-                  }
-                  alt=''
-                />
+                <img src={blackLeftArrow} alt='' />
                 Back step
               </PrevButton>
             )}
@@ -78,12 +78,7 @@ const CheckoutPage: React.FC = () => {
                 <Link to={'/'} style={{ color: '#000' }}>
                   Come back homepage
                 </Link>
-                <img
-                  src={
-                    'https://cassiopeia.store/svgs/line-right-arrow-black.svg'
-                  }
-                  alt=''
-                />
+                <img src={blackRightArrow} alt='' />
               </PrevButton>
             )}
           </div>
@@ -91,10 +86,7 @@ const CheckoutPage: React.FC = () => {
             {buttonProgress && (
               <NextButton onClick={handleNextClick}>
                 <span>{buttonProgress}</span>
-                <img
-                  src={'https://cassiopeia.store/svgs/line-right-arrow.svg'}
-                  alt=''
-                />
+                <img src={whiteRightArrow} alt='' />
               </NextButton>
             )}
             {buttonProgress === '' && <></>}

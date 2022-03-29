@@ -1,58 +1,69 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState } from 'react'
 
-const StoreContext = createContext<IStore | undefined>(undefined);
+const StoreContext = createContext<IStore>({} as IStore)
 
 const StoreContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [cartItems, setCartItems] = useState<IProduct[]| []>([]);
+  const [cartItems, setCartItems] = useState<IProduct[] | []>([])
 
   const handleAddToCart = (clickedItem: IProduct) => {
     setCartItems((prev) => {
-      const isItemInCart = prev?.find((item) => item.id === clickedItem.id);
+      const isItemInCart = prev?.find((item) => item.id === clickedItem.id)
 
       if (isItemInCart) {
         return prev.map((item) => {
           return item.id === clickedItem.id
             ? { ...item, amount: item.amount + 1 }
-            : item;
-        });
+            : item
+        })
       }
-      return [...prev, { ...clickedItem, amount: 1 }];
-    });
-  };
+      return [...prev, { ...clickedItem, amount: 1 }]
+    })
+  }
 
-  const handleRemoveFromCart = (id: string) => {
-    const filteredCartItems = cartItems!.filter((item) => item.id !== id);
-    setCartItems(filteredCartItems);
-  };
+  const handleDeleteFromCart = (id: string) => {
+    const filteredCartItems = cartItems!.filter((item) => item.id !== id)
+    setCartItems(filteredCartItems)
+  }
 
   const handleDecrease = (clickedItem: IProduct) => {
-      setCartItems!((prev) => {
-      const isItemInCart = prev?.find((item) => item.id === clickedItem.id);
+    setCartItems!((prev) => {
+      const isItemInCart = prev?.find((item) => item.id === clickedItem.id)
 
       if (isItemInCart) {
         return prev.map((item) => {
           return item.id === clickedItem.id
-              ? {...item, amount: item.amount - 1}
-              : item;
-        });
+            ? { ...item, amount: item.amount - 1 }
+            : item
+        })
       }
-      return [...prev, {...clickedItem, amount: 1}];
-    });
+      return [...prev, { ...clickedItem, amount: 1 }]
+    })
+  }
+
+  const handleRemoveAll = () => {
+    setCartItems([])
+  }
+
+  const handleDiscount = (discountCode: string) => {
+    setCartItems!((prev) => {
+      return prev.map((item) => {
+        return { ...item, discount: 20 }
+      })
+    })
   }
 
   const value = {
     handleAddToCart,
-    handleRemoveFromCart,
+    handleDeleteFromCart,
     handleDecrease,
     cartItems,
-    setCartItems
-  };
+    handleRemoveAll,
+    handleDiscount
+  }
 
-  return (
-    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
-  );
-};
+  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+}
 
-export { StoreContextProvider, StoreContext };
+export { StoreContextProvider, StoreContext }

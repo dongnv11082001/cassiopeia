@@ -1,28 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { blackRightArrow } from '../../constants/arrows'
 
 function SubBanner({ title, btnTitle, background, description }: BannersProps) {
   return (
-    <SubBannerWrapper className="banner">
-      <div className="banner__background">
+    <SubBannerWrapper className='banner'>
+      <div className='banner__background'>
         <img src={background} alt={background} />
       </div>
       <SubBannerDescription>
-        <div className="title">{title}</div>
-        <p className="text">{description}</p>
-        <Link to={"/flower"}>
-          <div className="banner__button">
+        <div className='title'>{title}</div>
+        <p className='text'>{description}</p>
+        <Link to={'/flowers'}>
+          <div className='banner__button'>
             <span>{btnTitle}</span>
-            <img
-              src="https://cassiopeia.store/svgs/line-right-arrow-black.svg"
-              alt=""
-            />
+            <img src={blackRightArrow} alt='' />
           </div>
         </Link>
       </SubBannerDescription>
     </SubBannerWrapper>
-  );
+  )
 }
 
 const SubBannerWrapper = styled.div`
@@ -32,7 +30,7 @@ const SubBannerWrapper = styled.div`
   position: relative;
   margin-right: 40px;
   margin-bottom: 80px;
-`;
+`
 
 const SubBannerDescription = styled.div`
   position: absolute;
@@ -42,7 +40,7 @@ const SubBannerDescription = styled.div`
   & .title {
     font-size: 1.75em;
     font-weight: 500;
-    font-family: "Roboto";
+    font-family: 'Roboto';
   }
 
   & .text {
@@ -68,6 +66,6 @@ const SubBannerDescription = styled.div`
   & a:hover {
     opacity: 0.8;
   }
-`;
+`
 
-export default SubBanner;
+export default SubBanner
