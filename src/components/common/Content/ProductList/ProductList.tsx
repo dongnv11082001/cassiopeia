@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { StoreContext } from '../../../../context/StoreContext'
 import { useFetch } from '../../../../hooks/useFetch'
+import {cartBtn, viewBtn} from "../../../../constants/imageURLs";
 
 type Props = {}
 
@@ -16,19 +17,19 @@ const ProductList: React.FC<Props> = () => {
   return (
     <ItemsWrapper>
       {flowers.slice(0, 4)?.map((item) => (
-        <Item key={item.id}>
+        <div key={item.id}>
           <ImageWrapper>
             <img src={item.thumbnail} className='img' alt='' />
             <IconWrapper>
-              <img src='/img/cart.svg' onClick={() => handleAdd(item)} alt='' />
+              <img src={cartBtn} onClick={() => handleAdd(item)} alt='' />
               <Link to={`/flowers/${item.id}`}>
-                <img src='/img/search.svg' alt='' />
+                <img src={viewBtn} alt='' />
               </Link>
             </IconWrapper>
           </ImageWrapper>
           <p className='name'>{item.name}</p>
           <p className='price'>${item.price}</p>
-        </Item>
+        </div>
       ))}
     </ItemsWrapper>
   )
@@ -69,8 +70,6 @@ const ImageWrapper = styled.div`
   border-radius: 2px;
 `
 
-const Item = styled.div``
-
 const IconWrapper = styled.div`
   position: absolute;
   bottom: 10%;
@@ -78,9 +77,7 @@ const IconWrapper = styled.div`
   & img {
     background-color: #fff;
     margin: 0 8px;
-    padding: 10px;
     border-radius: 4px;
-    width: 37px;
   }
 
   & img:hover {

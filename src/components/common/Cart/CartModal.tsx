@@ -1,17 +1,17 @@
-import { Modal } from "antd";
-import React from "react";
-import Cart from "./Cart";
+import { Modal } from 'antd'
+import React from 'react'
+import Cart from './Cart'
 
 type Props = {
-  onShow: boolean;
-  onCancel: () => void;
-  onOkClick: () => void;
-};
+  onShow: boolean
+  onCancel: () => void
+  onOkClick: () => void
+}
 
 export const CartModal: React.FC<Props> = ({ onShow, onCancel, onOkClick }) => {
   return (
     <Modal
-      title="Your cart"
+      title='Your cart'
       visible={onShow}
       onCancel={onCancel}
       onOk={onOkClick}
@@ -22,5 +22,5 @@ export const CartModal: React.FC<Props> = ({ onShow, onCancel, onOkClick }) => {
     >
       <Cart />
     </Modal>
-  );
-};
+  )
+}

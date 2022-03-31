@@ -1,94 +1,86 @@
-import React, { useContext, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { StoreContext } from "../../../context/StoreContext";
+import React, { useContext, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { whiteLeftArrow } from '../../../constants/imageURLs'
+import { StoreContext } from '../../../context/StoreContext'
 
 const AddedItem: React.FC = () => {
-  const CartModalContext = useContext(StoreContext);
-  const [code, setCode] = useState("");
-  const [text, setText] = useState("");
-  const [discount, setDiscount] = useState(0);
+  const CartModalContext = useContext(StoreContext)
+  const [code, setCode] = useState('')
+  const [text, setText] = useState('')
+  const [discount, setDiscount] = useState(0)
 
   const handleApplyCode = () => {
-    if (code === "20DOLLARSOFF") {
-      setText("Applied");
-      CartModalContext?.setCartItems!((prev) => {
-        return prev.map((item) => {
-          return { ...item, discount: 20 };
-        });
-      });
+    if (code === '20DOLLARSOFF') {
+      setText('Applied')
+      CartModalContext?.handleDiscount(code)
     } else {
-      setText("Promocode is not available! You can try [20DOLLARSOFF]");
+      setText('Promocode is not available! You can try [20DOLLARSOFF]')
     }
 
-    setDiscount(20);
-  };
-
-  const handleRemoveAll = () => {
-    CartModalContext?.setCartItems!([]);
-  };
+    setDiscount(20)
+  }
 
   const total = useMemo(() => {
     const result = CartModalContext?.cartItems?.reduce((prev, cur) => {
-      if (cur.discount) return prev + cur.amount! * cur.price! - cur?.discount!;
-      return prev + cur.amount! * cur.price!;
-    }, 0);
+      if (cur.discount) return prev + cur.amount * cur.price - cur?.discount
+      return prev + cur.amount * cur.price
+    }, 0)
 
-    return result;
-  }, [CartModalContext?.cartItems]);
+    return result
+  }, [CartModalContext?.cartItems])
 
   return (
     <>
       <AddedCart>
-        <div className="remove-all-btn" onClick={handleRemoveAll}>
+        <div
+          className='remove-all-btn'
+          onClick={CartModalContext?.handleRemoveAll}
+        >
           Remove all
         </div>
-        <div className="promocode-center">
+        <div className='promocode-center'>
           <input
-            type="text"
-            placeholder="Add promocode"
+            type='text'
+            placeholder='Add promocode'
             value={code}
             onChange={(e) => setCode(e.target.value)}
           />
-          <div className="apply-btn" onClick={handleApplyCode}>
+          <div className='apply-btn' onClick={handleApplyCode}>
             Apply
           </div>
         </div>
         {text && <Text code={code}>{text}</Text>}
-        <div className="payment-center">
-          <div className="payment-info">
-            <div className="key">Shipping</div>
-            <div className="value">FREE</div>
+        <div className='payment-center'>
+          <div className='payment-info'>
+            <div className='key'>Shipping</div>
+            <div className='value'>FREE</div>
           </div>
           {discount > 0 && (
-            <div className={"payment-info"}>
-              <div className="key">Promocode</div>
-              <div className="value">-${discount}</div>
+            <div className={'payment-info'}>
+              <div className='key'>Promocode</div>
+              <div className='value'>-${discount}</div>
             </div>
           )}
-          <div className="payment-info">
-            <div className="key">Order total</div>
-            <div className="value">${total}</div>
+          <div className='payment-info'>
+            <div className='key'>Order total</div>
+            <div className='value'>${total}</div>
           </div>
         </div>
-        <Link to="/checkout">
-          <div className="checkout-btn-wrapper">
-            <div className="checkout-btn">
+        <Link to='/checkout'>
+          <div className='checkout-btn-wrapper'>
+            <div className='checkout-btn'>
               <span>Checkout</span>
-              <div className="arrow-wrapper">
-                <img
-                  className="arrow"
-                  src="https://cassiopeia.store/svgs/line-right-arrow.svg"
-                  alt="arrow"
-                />
+              <div className='arrow-wrapper'>
+                <img className='arrow' src={whiteLeftArrow} alt='arrow' />
               </div>
             </div>
           </div>
         </Link>
       </AddedCart>
     </>
-  );
-};
+  )
+}
 
 const AddedCart = styled.div`
   .remove-all-btn {
@@ -120,7 +112,7 @@ const AddedCart = styled.div`
       border-radius: 5px;
       width: 150px;
       text-align: center;
-      transition: background-color 020dollarsoff.2s ease;
+      transition: background-color 0.2s ease;
       cursor: pointer;
       &:hover {
         background-color: #595cff;
@@ -175,10 +167,10 @@ const AddedCart = styled.div`
   .value {
     font-weight: 500;
   }
-`;
+`
 
 const Text = styled.h3<{ code: string }>`
-  color: ${(props) => (props.code === "20DOLLARSOFF" ? "green" : "red")};
-`;
+  color: ${(props) => (props.code === '20DOLLARSOFF' ? 'green' : 'red')};
+`
 
-export default AddedItem;
+export default AddedItem

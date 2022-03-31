@@ -1,35 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { whiteLeftArrow } from '../../constants/imageURLs'
 
 function Banner({ title, description, background, btnTitle }: BannersProps) {
   return (
-    <BannerWrapper className="banner">
-      <div className="banner__background">
+    <BannerWrapper className='banner'>
+      <div className='banner__background'>
         <img src={background} alt={background} />
       </div>
       <BannerDescription>
-        <div className="title">{title}</div>
-        <p className="text">{description}</p>
-        <Link to={"/flower"}>
-          <div className="banner__button">
+        <div className='title'>{title}</div>
+        <p className='text'>{description}</p>
+        <Link to={'/flowers'}>
+          <div className='banner__button'>
             <span>{btnTitle}</span>
-            <img
-              src="https://cassiopeia.store/svgs/line-right-arrow.svg"
-              alt=""
-            />
+            <img src={whiteLeftArrow} alt='' />
           </div>
         </Link>
       </BannerDescription>
     </BannerWrapper>
-  );
+  )
 }
 
 const BannerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const BannerDescription = styled.div`
   position: absolute;
@@ -39,7 +37,7 @@ const BannerDescription = styled.div`
   & .title {
     font-size: 1.75em;
     font-weight: 500;
-    font-family: "Roboto";
+    font-family: 'Roboto';
   }
 
   & .text {
@@ -66,6 +64,6 @@ const BannerDescription = styled.div`
   & a:hover {
     opacity: 0.8;
   }
-`;
+`
 
-export default Banner;
+export default Banner

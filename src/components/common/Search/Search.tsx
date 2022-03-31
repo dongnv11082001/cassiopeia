@@ -6,7 +6,7 @@ type SearchProps = {
 };
 
 function Search({ onShow }: SearchProps) {
-  const [seacrhInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   
   return (
     <div>
@@ -15,7 +15,7 @@ function Search({ onShow }: SearchProps) {
           type="text"
           className="header__search"
           placeholder="Search"
-          value={seacrhInput}
+          value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
       )}
@@ -25,7 +25,7 @@ function Search({ onShow }: SearchProps) {
 
 const slideIn = keyframes`
     0% {
-        width: 0%;
+        width: 0;
         transform: translateX(0);
     }
     100% {

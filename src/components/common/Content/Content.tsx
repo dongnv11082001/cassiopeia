@@ -18,7 +18,7 @@ const Content: React.FC = () => {
           <Banner
             title={banners[0]?.title?.toLocaleUpperCase()}
             description={banners[0]?.description}
-            background={'/img/banner.jpg'}
+            background={'https://res.cloudinary.com/didlxgowc/image/upload/f_auto,c_limit,w_1200,q_auto/cass15_mrg4hb.jpg'}
             btnTitle={banners[0]?.btnTitle}
           />
         </PrimaryBanner>
@@ -26,13 +26,13 @@ const Content: React.FC = () => {
           <SubBanner
             title={banners[1]?.title}
             description={banners[1]?.description}
-            background={'/img/gift.jpg'}
+            background={'https://res.cloudinary.com/didlxgowc/image/upload/f_auto,c_limit,w_640,q_auto/cass23_gfwimt.png'}
             btnTitle={banners[1]?.btnTitle}
           />
           <SubBanner
             title={banners[2]?.title}
             description={banners[2]?.description}
-            background={'/img/plant.jpg'}
+            background={'https://res.cloudinary.com/didlxgowc/image/upload/f_auto,c_limit,w_640,q_auto/cass31_esdbjz.png'}
             btnTitle={banners[2]?.btnTitle}
           />
         </SecondaryBanner>
