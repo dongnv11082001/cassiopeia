@@ -2,24 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-type BannerProps = {
-  title: string;
-  text: string;
-  imgSrc: string;
-};
-
-function Banner({ title, text, imgSrc }: BannerProps) {
+function Banner({ title, description, background, btnTitle }: BannersProps) {
   return (
     <BannerWrapper className="banner">
       <div className="banner__background">
-        <img src={imgSrc} alt={imgSrc} />
+        <img src={background} alt={background} />
       </div>
       <BannerDescription>
         <div className="title">{title}</div>
-        <p className="text">{text}</p>
+        <p className="text">{description}</p>
         <Link to={"/flower"}>
           <div className="banner__button">
-            <span>Shop now</span>
+            <span>{btnTitle}</span>
             <img
               src="https://cassiopeia.store/svgs/line-right-arrow.svg"
               alt=""
