@@ -14,10 +14,10 @@ import {
   blackLeftArrow,
   blackRightArrow,
   whiteRightArrow,
-} from '../../constants/arrows'
+} from '../../constants/imageURLs'
 
 const CheckoutPage: React.FC = () => {
-  const orders = useContext(StoreContext)
+  const {cartItems} = useContext(StoreContext)
   const [fullName, setFullName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [gender, setGender] = useState('Male')
@@ -42,8 +42,10 @@ const CheckoutPage: React.FC = () => {
     setGender,
   }
 
-  const total = orders?.cartItems?.reduce((prev, cur) => {
-    if (cur.discount) return prev + cur.amount * cur.price - cur?.discount
+  const total = cartItems?.reduce((prev, cur) => {
+    if (cur.discount) {
+      return prev + cur.amount * cur.price - cur?.discount
+    }
     return prev + cur.amount * cur.price
   }, 0)
 
@@ -93,7 +95,7 @@ const CheckoutPage: React.FC = () => {
           </div>
         </ButtonWrapper>
       </div>
-      <Order items={orders?.cartItems} total={total} />
+      <Order items={cartItems} total={total} />
     </Wrapper>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { whiteLeftArrow } from '../../constants/arrows'
+import { whiteLeftArrow } from '../../constants/imageURLs'
 
 function Banner({ title, description, background, btnTitle }: BannersProps) {
   return (

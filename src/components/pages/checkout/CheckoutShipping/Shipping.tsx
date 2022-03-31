@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import 'antd/lib/select/style/css'
 import { CaretDownFilled } from '@ant-design/icons/lib/icons'
-import { checkedRadio, uncheckedRadio } from '../../../../constants/arrows'
+import { checkedRadio, uncheckedRadio } from '../../../../constants/imageURLs'
 
 const availableAddress = [
   {

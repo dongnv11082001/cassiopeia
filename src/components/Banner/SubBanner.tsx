@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { blackRightArrow } from '../../constants/arrows'
+import { blackRightArrow } from '../../constants/imageURLs'
 
 function SubBanner({ title, btnTitle, background, description }: BannersProps) {
   return (

@@ -14,3 +14,9 @@ export const checkedRadio = 'https://cassiopeia.store/svgs/radio-checked.svg'
 
 export const uncheckedRadio =
   'https://cassiopeia.store/svgs/radio-unchecked.svg'
+
+export const cartBtn = 'https://cassiopeia.store/svgs/cart-btn.svg'
+
+export const viewBtn = 'https://cassiopeia.store/svgs/view-btn.svg'
+
+export const logo = 'https://cassiopeia.store/svgs/logo.svg'

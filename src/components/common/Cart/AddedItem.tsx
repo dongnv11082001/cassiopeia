@@ -1,7 +1,7 @@
 import React, { useContext, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { whiteLeftArrow } from '../../../constants/arrows'
+import { whiteLeftArrow } from '../../../constants/imageURLs'
 import { StoreContext } from '../../../context/StoreContext'
 
 const AddedItem: React.FC = () => {

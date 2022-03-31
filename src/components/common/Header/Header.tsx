@@ -8,6 +8,7 @@ import "antd/dist/antd.css";
 import Search from "../Search/Search";
 import { StoreContext } from "../../../context/StoreContext";
 import { CartModal } from "../Cart/CartModal";
+import {cartBtn, logo, viewBtn} from "../../../constants/imageURLs";
 
 type Props = {};
 
@@ -36,12 +37,12 @@ const Header: React.FC<Props> = () => {
   return (
     <HeaderContainer className="header">
       <HeaderLocation className="header__location">
-        <img src="/img/location.svg" alt="Location Icon" />
+        <img src={'/img/location.svg'} alt="Location Icon" />
         <Location>Vietnam</Location>
       </HeaderLocation>
       <HeaderLogo className="header__logo">
         <Link to="/">
-          <img src="/img/logo.svg" alt="" />
+          <img src={logo} alt="" />
         </Link>
       </HeaderLogo>
       <HeaderGroup className="header__group">
@@ -50,7 +51,7 @@ const Header: React.FC<Props> = () => {
           <img
             onClick={handleShowSearch}
             className="header__icon-search"
-            src="/img/search.svg"
+            src={viewBtn}
             alt=""
           />
         </IconWrapper>
@@ -59,7 +60,7 @@ const Header: React.FC<Props> = () => {
             <img
               onClick={handleShowCart}
               className="header__icon-cart"
-              src="/img/cart.svg"
+              src={cartBtn}
               alt=""
             />
             <CartModal
